@@ -1,5 +1,5 @@
 <template>
-  <nav class="navbar navbar-expand-sm navbar-light bg-light">
+  <nav class="navbar navbar-expand-sm navbar-dark bg-dark full-width">
     <a class="navbar-brand" href="#">Cognifit</a>
     <button
       class="navbar-toggler"
@@ -12,7 +12,7 @@
     >
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
       <ul class="navbar-nav">
         <li class="nav-item active">
           <a class="nav-link" href="#">
@@ -36,17 +36,36 @@
             aria-haspopup="true"
             aria-expanded="false"
           >Settings</a>
-          <div class="dropdown-menu text-center" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Action</a>
-            <button class="btn btn-success">Change Workout</button>
-            <button class="btn btn-success">Change Workout</button>
-            <button class="btn btn-success">Change Workout</button>
-            <button class="btn btn-success">Change Workout</button>
-            <a class="dropdown-item" href="#">Another action</a>
-            <a class="dropdown-item" href="#">Something else here</a>
+          <div class="dropdown-menu text-center bg-dark" aria-labelledby="navbarDropdownMenuLink">
+            <button
+              class="btn w-75 border border-shadow border-white m-1 btn-info mt-1"
+            >Resistance Training</button>
+            <button class="btn w-75 border border-shadow border-white m-1 btn-warning mt-1">Cardio</button>
+            <button
+              class="btn w-75 border border-shadow border-white m-1 btn-secondary mt-1"
+            >Nutrition</button>
+            <button class="btn w-75 border border-shadow border-white m-1 btn-danger mt-1">Metrics</button>
+            <button
+              class="btn border w-75 border-shadow text-white border-secondary m-1 btn-transparent mt-1"
+            >Metrics</button>
+            <button
+              class="btn border w-75 border-shadow text-white border-secondary m-1 btn-transparent mt-1"
+            >Metrics</button>
           </div>
         </li>
       </ul>
+
+      <span v-if="$auth.isAuthenticated" class="text-white mt-2">
+        <h6>{{userInfo.user.name}}</h6>
+      </span>
+      <span class="navbar-text">
+        <button
+          class="btn-sm btn btn-success border border-secondary"
+          @click="login"
+          v-if="!$auth.isAuthenticated"
+        >Login</button>
+        <button class="btn-sm btn btn-warning border border-light" @click="logout" v-else>logout</button>
+      </span>
     </div>
   </nav>
 
@@ -103,6 +122,11 @@ export default {
     async logout() {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
+    }
+  },
+  computed: {
+    userInfo() {
+      return this.$auth;
     }
   }
 };

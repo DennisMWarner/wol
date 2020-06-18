@@ -1,5 +1,5 @@
 <template>
-  <div class="home bg-primary"></div>
+  <div class="home bg-light text-success full-background">Home Page</div>
 </template>
 
 <script>
