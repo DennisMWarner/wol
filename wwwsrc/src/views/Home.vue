@@ -1,12 +1,16 @@
 <template>
   <div class="home bg-warning text-success full-background">
     Home Page
-    <active-exercise-header />
+    <active-workout />
+    <active-exercise />
+    <active-set />
   </div>
 </template>
 
 <script>
-import ActiveExerciseHeader from "../components/ActiveExerciseHeader";
+import ActiveExercise from "../components/ActiveExercise";
+import ActiveSet from "../components/ActiveSet";
+import ActiveWorkout from "../components/ActiveWorkout";
 
 export default {
   name: "home",
@@ -20,6 +24,6 @@ export default {
       this.$store.dispatch("logout");
     }
   },
-  components: { ActiveExerciseHeader }
+  components: { ActiveExercise, ActiveSet, ActiveWorkout }
 };
 </script>

@@ -1,13 +1,11 @@
 <template>
-  <div class="active-exercise-header">
-    <h3>Exercise Title Here</h3>
-  </div>
+  <div class="active-workout bg-warning">Current workout header here...</div>
 </template>
 
 
 <script>
 export default {
-  name: "active-exercise-header",
+  name: "active-workout",
   data() {
     return {};
   },
