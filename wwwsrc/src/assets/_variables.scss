@@ -1,0 +1,39 @@
+$body-bg: #142533;
+
+$primary: #2f3c48;
+$secondary: #6f7f8c;
+$danger: #7c4040;
+$success: #3e4d59;
+$warning: #6e9fa5;
+$info: #d1e0e1;
+
+$blue: blue;
+$indigo: indigo;
+$purple: purple;
+$pink: pink;
+$red: red;
+$orange: orange;
+$yellow: yellow;
+$green: green;
+$teal: teal;
+$cyan: cyan;
+$white: white;
+$gray: gray;
+$gray-dark: darkslategray;
+$font-family-sans-serif: Muli;
+
+$colors: (
+  "blue": $blue,
+  "indigo": $indigo,
+  "purple": $purple,
+  "pink": $pink,
+  "red": $red,
+  "orange": $orange,
+  "yellow": $yellow,
+  "green": $green,
+  "teal": $teal,
+  "cyan": $cyan,
+  "white": $white,
+  "gray": $gray,
+  "gray-dark": $gray-dark,
+) !default;

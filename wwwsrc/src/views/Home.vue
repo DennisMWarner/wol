@@ -1,8 +1,13 @@
 <template>
-  <div class="home bg-light text-success full-background">Home Page</div>
+  <div class="home bg-warning text-success full-background">
+    Home Page
+    <active-exercise-header />
+  </div>
 </template>
 
 <script>
+import ActiveExerciseHeader from "../components/ActiveExerciseHeader";
+
 export default {
   name: "home",
   computed: {
@@ -14,6 +19,7 @@ export default {
     logout() {
       this.$store.dispatch("logout");
     }
-  }
+  },
+  components: { ActiveExerciseHeader }
 };
 </script>

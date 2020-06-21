@@ -59,12 +59,8 @@
         <h6>{{userInfo.user.name}}</h6>
       </span>
       <span class="navbar-text">
-        <button
-          class="btn-sm btn btn-success border border-secondary"
-          @click="login"
-          v-if="!$auth.isAuthenticated"
-        >Login</button>
-        <button class="btn-sm btn btn-warning border border-light" @click="logout" v-else>logout</button>
+        <button class="btn-sm btn btn-warning" @click="login" v-if="!$auth.isAuthenticated">Login</button>
+        <button class="btn-sm btn btn-danger border border-light" @click="logout" v-else>logout</button>
       </span>
     </div>
   </nav>
