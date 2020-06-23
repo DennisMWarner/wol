@@ -1,16 +1,11 @@
 <template>
   <div class="home bg-white text-success">
-    <active-workout />
-    <active-exercise />
-
-    <active-set />
+    <new-program />
   </div>
 </template>
 
 <script>
-import ActiveExercise from "../components/ActiveExercise";
-import ActiveSet from "../components/ActiveSet";
-import ActiveWorkout from "../components/ActiveWorkout";
+import NewProgram from "../components/NewProgram";
 
 export default {
   name: "home",
@@ -24,6 +19,6 @@ export default {
       this.$store.dispatch("logout");
     }
   },
-  components: { ActiveExercise, ActiveSet, ActiveWorkout }
+  components: { NewProgram }
 };
 </script>
