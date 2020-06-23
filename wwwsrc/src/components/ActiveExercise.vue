@@ -1,6 +1,8 @@
 <template>
-  <div class="active-exercise">
-    <h3>Exercise Title Here</h3>
+  <div class="row">
+    <div class="active-exercise col-12 bg-warning">
+      <h3>Exercise Title Here</h3>
+    </div>
   </div>
 </template>
 

@@ -1,5 +1,7 @@
 <template>
-  <div class="active-workout bg-warning">Current workout header here...</div>
+  <div class="row">
+    <div class="active-workout bg-info col-12">Current workout header here...</div>
+  </div>
 </template>
 
 

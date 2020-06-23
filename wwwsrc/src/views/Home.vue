@@ -1,8 +1,8 @@
 <template>
-  <div class="home bg-warning text-success full-background">
-    Home Page
+  <div class="home bg-white text-success">
     <active-workout />
     <active-exercise />
+
     <active-set />
   </div>
 </template>

@@ -1,5 +1,7 @@
 <template>
-  <div class="active-set bg-light">Active Set Here</div>
+  <div class="row">
+    <div class="active-set bg-light col-12">Active Set Here</div>
+  </div>
 </template>
 
 
