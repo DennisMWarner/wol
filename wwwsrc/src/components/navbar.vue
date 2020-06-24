@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-dark col-12">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-primary col-12">
       <a class="navbar-brand" href="#">Cognifit</a>
       <button
         class="navbar-toggler"
@@ -22,14 +22,14 @@
             </a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Features</a>
+            <a class="nav-link text-success" href="#">Features</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link" href="#">Pricing</a>
+            <a class="nav-link text-warning" href="#">Pricing</a>
           </li>
           <li class="nav-item dropdown">
             <a
-              class="nav-link dropdown-toggle"
+              class="nav-link dropdown-toggle text-info"
               href="#"
               id="navbarDropdownMenuLink"
               role="button"
@@ -60,8 +60,12 @@
           <h6>{{userInfo.user.name}}</h6>
         </span>
         <span class="navbar-text">
-          <button class="btn-sm btn btn-warning" @click="login" v-if="!$auth.isAuthenticated">Login</button>
-          <button class="btn-sm btn btn-danger border border-light" @click="logout" v-else>logout</button>
+          <button
+            class="btn-sm btn btn-success border border-white text-white"
+            @click="login"
+            v-if="!$auth.isAuthenticated"
+          >Login</button>
+          <button class="btn-sm btn btn-danger border border-white" @click="logout" v-else>logout</button>
         </span>
       </div>
     </nav>
