@@ -7,6 +7,7 @@
         data-target="#new-programs-modal"
       >New program</button>
     </div>
+    <resistance-program-overview />
     <div class="modal" tabindex="-1" role="dialog" id="new-programs-modal">
       <div class="modal-dialog" role="document">
         <div class="modal-content">
@@ -31,6 +32,7 @@
 
 <script>
 import NewProgram from "../components/NewProgram";
+import ResistanceProgramOverview from "../components/ResistanceProgramOverview";
 
 export default {
   name: "home",
@@ -44,6 +46,6 @@ export default {
       this.$store.dispatch("logout");
     }
   },
-  components: { NewProgram }
+  components: { NewProgram, ResistanceProgramOverview }
 };
 </script>
