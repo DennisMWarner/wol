@@ -15,11 +15,8 @@
       </button>
       <div class="collapse navbar-collapse justify-content-between" id="navbarNavDropdown">
         <ul class="navbar-nav">
-          <li class="nav-item active">
-            <a class="nav-link" href="#">
-              Home
-              <span class="sr-only">(current)</span>
-            </a>
+          <li class="nav-item" :class="{ active: $route.name == 'home' }">
+            <router-link :to="{ name: 'home' }" class="nav-link pl-1">Home</router-link>
           </li>
           <li class="nav-item">
             <a class="nav-link text-success" href="#">Features</a>

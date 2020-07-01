@@ -7,8 +7,8 @@
         >Cardio Program</button>
         <button
           class="btn btn-secondary border border-white rounded shadow text-white btn-block"
-          data-target="#new-resistance-modal"
-          data-toggle="modal"
+          @click="addNewResistanceProgram()"
+          data-dismiss="modal"
         >Resistance Program</button>
         <button
           class="btn btn-info border border-white rounded shadow text-primary btn-block"
@@ -16,35 +16,6 @@
         <button
           class="btn btn-warning border border-white rounded shadow text-white btn-block mb-3"
         >Nutrition Program</button>
-      </div>
-      <div class="modal" tabindex="-1" role="dialog" id="new-resistance-modal">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header bg-primary">
-              <h5 class="modal-title text-white">New Resistance Set</h5>
-            </div>
-            <div class="modal-body">
-              <form>
-                <div class="form-group">
-                  <label for="exampleInputEmail1">Weight:</label>
-                  <input
-                    type="number"
-                    class="form-control"
-                    id="exampleInputEmail1"
-                    aria-describedby="emailHelp"
-                    placeholder="Weight"
-                    step="2.5"
-                  />
-                  <small id="emailHelp" class="form-text text-muted">Enter set weight</small>
-                </div>
-              </form>
-            </div>
-            <div class="modal-footer bg-primary">
-              <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
-              <button type="button" class="btn btn-primary">Save Set</button>
-            </div>
-          </div>
-        </div>
       </div>
     </div>
   </div>
@@ -58,7 +29,11 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    addNewResistanceProgram() {
+      this.$router.push("new-resistance-program");
+    }
+  },
   components: {}
 };
 </script>
