@@ -4,7 +4,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 // @ts-ignore
 // import Dashboard from "./views/Dashboard.vue";
-import NewResistanceProgram from "./views/NewResistanceProgram.vue";
+
 import { authGuard } from "@bcwdev/auth0-vue";
 
 Vue.use(Router);
@@ -22,10 +22,6 @@ export default new Router({
     //   component: Dashboard,
     //   beforeEnter: authGuard
     // }
-    {
-      path: "/new-resistance-program",
-      name: "NewResistanceProgram",
-      component: NewResistanceProgram
-    },
+
   ]
 });

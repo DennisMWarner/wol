@@ -1,5 +1,5 @@
 <template>
-  <div id="app" class="container-fluid full-background bg-white">
+  <div id="app" class="container-fluid full-background bg-dark">
     <navbar />
     <router-view />
   </div>
@@ -15,8 +15,8 @@ export default {
     this.$store.dispatch("setBearer", this.$auth.bearer);
   },
   components: {
-    Navbar
-  }
+    Navbar,
+  },
 };
 </script>
 

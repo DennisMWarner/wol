@@ -1,51 +1,34 @@
-<template>
-  <div class="row text-center">
-    <div class="home bg-info text-success col-12">
-      <button
-        class="btn btn-primary text-info border rounded shadow my-3"
-        data-toggle="modal"
-        data-target="#new-programs-modal"
-      >New program</button>
-    </div>
-    <resistance-program-overview class="col-12" />
-    <div class="modal" tabindex="-1" role="dialog" id="new-programs-modal">
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header bg-primary">
-            <h5 class="modal-title text-white">New Program</h5>
-          </div>
-          <div class="modal-body">
-            <new-program />
-          </div>
-          <div class="modal-footer bg-primary">
-            <button
-              type="button"
-              class="btn-light border border-warning btn rounded shadow text-dark"
-              data-dismiss="modal"
-            >Cancel</button>
-          </div>
-        </div>
-      </div>
-    </div>
+<template class="bg-dark">
+  <div>
+    <target-body-part />
+    <exercise />
+    <set />
+    <set />
+    <set />
   </div>
 </template>
 
 <script>
-import NewProgram from "../components/NewProgram";
-import ResistanceProgramOverview from "../components/ResistanceProgramOverview";
+import TargetBodyPart from "../components/TargetBodyPart";
+import Set from "../components/Set";
+import Exercise from "../components/Exercise";
 
 export default {
   name: "home",
   computed: {
     user() {
       return this.$store.state.user;
-    }
+    },
   },
   methods: {
     logout() {
       this.$store.dispatch("logout");
-    }
+    },
   },
-  components: { NewProgram, ResistanceProgramOverview }
+  components: {
+    TargetBodyPart,
+    Set,
+    Exercise,
+  },
 };
 </script>

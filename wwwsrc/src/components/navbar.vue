@@ -19,10 +19,10 @@
             <router-link :to="{ name: 'home' }" class="nav-link pl-1">Home</router-link>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-success" href="#">Features</a>
+            <a class="nav-link text-success" href="#">Thing 1</a>
           </li>
           <li class="nav-item">
-            <a class="nav-link text-warning" href="#">Pricing</a>
+            <a class="nav-link text-warning" href="#">Thing 2</a>
           </li>
           <li class="nav-item dropdown">
             <a
@@ -74,7 +74,7 @@ import axios from "axios";
 
 let _api = axios.create({
   baseURL: "https://localhost:5001",
-  withCredentials: true
+  withCredentials: true,
 });
 export default {
   name: "Navbar",
@@ -88,13 +88,13 @@ export default {
     async logout() {
       this.$store.dispatch("resetBearer");
       await this.$auth.logout({ returnTo: window.location.origin });
-    }
+    },
   },
   computed: {
     userInfo() {
       return this.$auth;
-    }
-  }
+    },
+  },
 };
 </script>
 
