@@ -1,7 +1,7 @@
 <template>
-  <div class="exercise row w-50">
+  <div class="exercise row w-100">
     <div
-      class="col-12 ml-4 mt-2 text-white border border-white bg-black rounded p-2 text-left"
+      class="col-12 ml-3 mt-2 text-white border border-white bg-secondary rounded px-2 py-1 mb-2 text-left"
     >Bench Press</div>
   </div>
 </template>

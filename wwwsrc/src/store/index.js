@@ -17,11 +17,11 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    publicKeeps: []
+    setGroup: [{ id: 1, name: "Set 1", weight: 200, reps: 15 }, { id: 3, name: "Set 2", weight: 205, reps: 15 }, { id: 2, name: "Set 3", weight: 150, reps: 20 }, { id: 2, name: "Set 3", weight: 150, reps: 20 }, { id: 2, name: "Set 3", weight: 150, reps: 20 }]
   },
   mutations: {},
   actions: {
-    setBearer({}, bearer) {
+    setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {

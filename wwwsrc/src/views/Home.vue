@@ -1,16 +1,14 @@
-<template class="bg-dark">
+<template class="bg-dark home">
   <div>
     <target-body-part />
     <exercise />
-    <set />
-    <set />
-    <set />
+    <set-group />
   </div>
 </template>
 
 <script>
 import TargetBodyPart from "../components/TargetBodyPart";
-import Set from "../components/Set";
+import SetGroup from "../components/SetGroup";
 import Exercise from "../components/Exercise";
 
 export default {
@@ -27,7 +25,7 @@ export default {
   },
   components: {
     TargetBodyPart,
-    Set,
+    SetGroup,
     Exercise,
   },
 };

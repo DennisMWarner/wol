@@ -1,6 +1,6 @@
 <template>
-  <div class="target-body-part w-50 row">
-    <div class="col-12 ml-2 text-white bg-secondary border p-2 rounded mt-1">Chest</div>
+  <div class="target-body-part w-100 row text-center mx-auto">
+    <div class="col-12 text-white bg-warning border p-2 rounded mt-1">Chest</div>
   </div>
 </template>
 
