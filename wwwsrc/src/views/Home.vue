@@ -1,5 +1,5 @@
 <template class="bg-dark home">
-  <div>
+  <div class="border border-warning shadow rounded px-1 bg-info">
     <target-body-part />
     <exercise />
     <set-group />

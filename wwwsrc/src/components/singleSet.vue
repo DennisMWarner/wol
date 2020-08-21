@@ -1,7 +1,7 @@
 <template>
   <div class="singleSet col-12">
     <div class="row">
-      <div class="mt-1 col-12 border rounded border-white no-gutters">
+      <div class="mt-2 col-12 border shadow rounded border-white no-gutters">
         <div class="row">
           <div class="col-12 bg-white">
             <div class="row">
@@ -17,7 +17,7 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-12 text-right text-white">
+          <div class="col-12 bg-success text-right text-white">
             <p>Actual: 100 x 5</p>
           </div>
         </div>

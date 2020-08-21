@@ -14,7 +14,7 @@ export default {
   },
   computed: {
     setGroup() {
-      return this.$store.state.setGroup;
+      return this.$store.state.plannedSets;
     },
   },
   methods: {},
