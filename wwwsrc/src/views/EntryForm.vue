@@ -32,7 +32,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >Third Body Group</button>
+          >First Body Group</button>
           <div
             class="dropdown-menu bg-info border border-white text-white ml-2 p-3"
             aria-labelledby="dropdownMenuButton"
@@ -40,30 +40,30 @@
             <div class="btn-group-vertical">
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Chest')"
+                @click="setFirstBodyPart('Chest')"
               >Chest</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Shoulder')"
+                @click="setFirstBodyPart('Shoulder')"
               >Shoulders</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Tricep')"
+                @click="setFirstBodyPart('Tricep')"
               >Triceps</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Bicep')"
+                @click="setFirstBodyPart('Bicep')"
               >Biceps</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Back')"
+                @click="setFirstBodyPart('Back')"
               >Back</button>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-12 text-white mt-2">{{firstBodyGroup.name}}</div>
+          <div class="col-12 text-white mt-2">{{this.firstBodyGroup.name}}</div>
         </div>
         <!----------------------==================================----FIRST Exercise ---------------------->
 
@@ -81,11 +81,14 @@
             aria-labelledby="dropdownMenuButton"
           >
             <exercise-menu-option
-              v-for="exerciseMenuOption in exerciseMenuOptions"
-              :exerciseMenuOptionData="exerciseMenuOption"
-              :key="exerciseMenuOption.value"
+              v-for="firstBodyPartExerciseMenuOption in firstBodyPartExerciseMenuOptions"
+              :exerciseMenuOptionData="firstBodyPartExerciseMenuOption"
+              :key="firstBodyPartExerciseMenuOption.value"
             />
           </div>
+        </div>
+        <div class="row">
+          <div class="col-12 text-white mt-2">{{}}</div>
         </div>
       </div>
       <!--------------------------------------------------------------SECOND BODY GROUP------------------->
@@ -98,7 +101,7 @@
             data-toggle="dropdown"
             aria-haspopup="true"
             aria-expanded="false"
-          >Third Body Group</button>
+          >Second Body Group</button>
           <div
             class="dropdown-menu bg-info border border-white text-white ml-2 p-3"
             aria-labelledby="dropdownMenuButton"
@@ -106,30 +109,30 @@
             <div class="btn-group-vertical">
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Chest')"
+                @click="setSecondBodyPart('Chest')"
               >Chest</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Shoulder')"
+                @click="setSecondBodyPart('Shoulder')"
               >Shoulders</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Tricep')"
+                @click="setSecondBodyPart('Tricep')"
               >Triceps</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Bicep')"
+                @click="setSecondBodyPart('Bicep')"
               >Biceps</button>
               <button
                 class="btn btn-primary border rounded m-1 ml-2"
-                @click="setBodyPart('Back')"
+                @click="setSecondBodyPart('Back')"
               >Back</button>
             </div>
           </div>
         </div>
 
         <div class="row">
-          <div class="col-12 text-white mt-2">{{firstBodyGroup.name}}</div>
+          <div class="col-12 text-white mt-2">{{secondBodyGroup.name}}</div>
         </div>
         <!----------------------==================================----FIRST Exercise ---------------------->
 
@@ -147,9 +150,9 @@
             aria-labelledby="dropdownMenuButton"
           >
             <exercise-menu-option
-              v-for="exerciseMenuOption in exerciseMenuOptions"
-              :exerciseMenuOptionData="exerciseMenuOption"
-              :key="exerciseMenuOption.value"
+              v-for="secondBodyPartExerciseMenuOption in secondBodyPartExerciseMenuOptions"
+              :exerciseMenuOptionData="secondBodyPartExerciseMenuOption"
+              :key="secondBodyPartExerciseMenuOption.value"
             />
           </div>
         </div>
@@ -175,22 +178,54 @@ export default {
   data() {
     return {
       firstBodyGroup: {},
+      secondBodyGroup: {},
+      thirdBodyGroup: {},
     };
   },
   computed: {
-    exerciseMenuOptions() {
-      return this.$store.state.activeBodyPartExercises;
+    firstBodyPartExerciseMenuOptions() {
+      return this.$store.state.firstActiveBodyPartExercises;
+    },
+    secondBodyPartExerciseMenuOptions() {
+      return this.$store.state.secondActiveBodyPartExercises;
     },
   },
   methods: {
     test() {
       console.log(this.firstBodyGroup);
     },
-    setBodyPart(bpName) {
+    setFirstBodyPart(bpName) {
+      this.firstBodyGroup.name = bpName;
+      console.log("first body part: ", this.firstBodyGroup.name);
+      let exercises = bpName.toLowerCase() + "Exercises";
+      console.log("exercises: ", this.$store.state[exercises]);
+      this.$store.state.firstActiveBodyPartExercises = this.$store.state[
+        exercises
+      ];
+      console.log(
+        "active ebody part exercises: ",
+        this.$store.state.activeBodyPartExercises
+      );
+    },
+    setSecondBodyPart(bpName) {
+      this.secondBodyGroup.name = bpName;
+      let exercises = bpName.toLowerCase() + "Exercises";
+      console.log("exercises: ", this.$store.state[exercises]);
+      this.$store.state.secondActiveBodyPartExercises = this.$store.state[
+        exercises
+      ];
+      console.log(
+        "active ebody part exercises: ",
+        this.$store.state.activeBodyPartExercises
+      );
+    },
+    setThirdBodyPart(bpName) {
       this.firstBodyGroup.name = bpName;
       let exercises = bpName.toLowerCase() + "Exercises";
       console.log("exercises: ", this.$store.state[exercises]);
-      this.$store.state.activeBodyPartExercises = this.$store.state[exercises];
+      this.$store.state.thirdActiveBodyPartExercises = this.$store.state[
+        exercises
+      ];
       console.log(
         "active ebody part exercises: ",
         this.$store.state.activeBodyPartExercises

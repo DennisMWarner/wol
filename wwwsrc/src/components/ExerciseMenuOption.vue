@@ -1,15 +1,9 @@
 <template>
   <div class="exercise-menu-option">
-    <div class="form-check mb-2">
-      <input
-        class="form-check-input"
-        type="radio"
-        name="exampleRadios"
-        id="exampleRadios2"
-        value="Rope Hammer Curl"
-      />
-      <label class="form-check-label" for="exampleRadios2">{{exerciseMenuOptionData}}</label>
-    </div>
+    <button
+      class="btn btn-primary border rounded m-1 ml-2"
+      @click="setExercise()"
+    >{{this.exerciseMenuOptionData}}</button>
   </div>
 </template>
 
@@ -22,7 +16,9 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    setExercise() {},
+  },
   components: {},
 };
 </script>
