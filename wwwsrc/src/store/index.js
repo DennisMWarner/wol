@@ -34,11 +34,17 @@ export default new Vuex.Store({
     setActiveMuscleGroup(state, activeMuscleGroup) {
       state.activeMuscleGroup = activeMuscleGroup;
     },
+    setActiveExercise(state, activeExercise) {
+      state.activeExercise = activeExercise;
+    },
     setAllExercisesByMuscleGroup(state, activeMuscleGroup) {
       let exercises = activeMuscleGroup.name.toLowerCase() + "Exercises"
       console.log("exercises by MG: ", exercises)
       console.log("found in state: ", state[exercises])
       state.allExercisesByMuscleGroup = state[exercises]
+    },
+    setActiveSet(state, activeSet) {
+      state.activeSets.push(activeSet)
     }
   },
   actions: {
@@ -52,8 +58,15 @@ export default new Vuex.Store({
       dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
       commit("setActiveMuscleGroup", activeMuscleGroup)
     },
+    setActiveExercise({ dispatch, commit }, activeExercise) {
+      // dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
+      commit("setActiveExercise", activeExercise)
+    },
     setAllExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
       commit("setAllExercisesByMuscleGroup", activeMuscleGroup)
+    },
+    saveSetData({ commit }, activeSet) {
+      commit("setActiveSet", activeSet)
     }
   }
 });

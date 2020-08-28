@@ -2,11 +2,11 @@
   <div>
     <div class="border border-warning shadow rounded px-1 mb-2 bg-info">
       <muscle-group />
-      <exercise />
-      <set-group />
+      <exercise v-if="this.$store.state.activeMuscleGroup.name" />
+      <set-group v-if="this.$store.state.activeExercise.name" />
     </div>
-    <add-muscle-group-button />
-    <add-exercise-button />
+    <add-muscle-group-button v-if="this.$store.state.activeMuscleGroup.name" />
+    <add-exercise-button v-if="this.$store.state.activeExercise.name" />
   </div>
 </template>
 

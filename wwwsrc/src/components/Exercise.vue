@@ -1,10 +1,10 @@
 <template>
   <div class="exercise row w-100 mx-auto">
     <div
-      class="col-12 mt-2 text-white border shadow border-white bg-wsecondary rounded px-2 pt-1 mb-2 text-center"
+      class="col-12 mt-2 text-white border shadow border-white bg-secondary rounded px-2 pt-1 mb-2 text-left"
       v-if="this.$store.state.activeExercise.name"
     >
-      <h4>{{this.$store.state.activeExercise.name}}</h4>
+      <p>{{this.$store.state.activeExercise.name}}</p>
     </div>
     <div v-else class="col-12 p-0">
       <button

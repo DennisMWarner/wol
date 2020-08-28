@@ -18,7 +18,7 @@
         </div>
         <div class="row">
           <div class="col-12 bg-success text-right text-white rounded-bottom">
-            <p>Actual: 100 x 5</p>
+            <p>Actual: {{activeSetData.weight}} x {{activeSetData.reps}}</p>
           </div>
         </div>
       </div>

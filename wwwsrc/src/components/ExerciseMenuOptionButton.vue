@@ -3,6 +3,7 @@
     <button
       class="btn btn-secondary border rounded border-white w-75 mb-3"
       data-dismiss="modal"
+      @click="setActiveExercise()"
     >{{this.exerciseMenuOptionButtonData.name}}</button>
   </div>
 </template>
@@ -17,7 +18,13 @@ export default {
   },
   computed: {},
   methods: {
-    getExercise() {},
+    setActiveExercise() {
+      this.$store.dispatch(
+        "setActiveExercise",
+        this.exerciseMenuOptionButtonData
+      );
+      this.$store.state.activeExercises.push(this.exerciseMenuOptionButtonData);
+    },
   },
   components: {},
   props: ["exerciseMenuOptionButtonData"],

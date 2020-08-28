@@ -1,6 +1,6 @@
 <template>
   <div class="row">
-    <nav class="navbar navbar-expand-sm navbar-dark bg-primary col-12">
+    <nav class="navbar navbar-expand-sm navbar-dark bg-dark col-12">
       <a class="navbar-brand" href="#">Cognifit</a>
       <button
         class="navbar-toggler"
