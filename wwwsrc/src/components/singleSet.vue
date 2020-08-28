@@ -6,12 +6,12 @@
           <div class="col-12 bg-white rounded-top">
             <div class="row">
               <div class="col-4">
-                <p class="text-warning">{{setGroupData.name}}</p>
+                <p class="text-warning">{{activeSetData.name}}</p>
               </div>
               <div class="col-8">
                 <p
                   class="text-dark text-right"
-                >Plan: {{setGroupData.weight}} X {{setGroupData.reps}}</p>
+                >Plan: {{activeSetData.weight}} X {{activeSetData.reps}}</p>
               </div>
             </div>
           </div>
@@ -30,7 +30,7 @@
 <script>
 export default {
   name: "singleSet",
-  props: ["setGroupData"],
+  props: ["activeSetData"],
   data() {
     return {};
   },

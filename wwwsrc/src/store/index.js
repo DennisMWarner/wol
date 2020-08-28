@@ -17,29 +17,43 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
-    plannedSets: [{ id: 1, name: "Set 1", weight: 200, reps: 15 }, { id: 3, name: "Set 2", weight: 205, reps: 15 }, { id: 2, name: "Set 3", weight: 150, reps: 20 }, { id: 4, name: "Set 3", weight: 150, reps: 20 }, { id: 5, name: "Set 3", weight: 150, reps: 20 }],
-    activeMuscleGroup: { name: "Chesticles" },
+    activeSets: [],
+    activeMuscleGroup: {},
+    activeMuscleGroups: [],
     activeExercise: {},
-    activeExercises: [{ name: "Chesticle Press" }],
-
-
-
-
-
-
-    chestExercises: ["Bench Press", "Dual Handle Incline", "Dual Handle Decline"],
-    bicepExercises: ["Free-Weight Curl Bar", "Dual Handle, Single Cable Curl", "Free=Weight Seated Dumbbell Curl", "Rope Hammer Curl", "Dual Handle, Dual Cable Curl"],
-    tricepExercises: ["Dual Handle, Reverse-Grip Pulldown", "Rope Pulldown", "Single Bar Cable Pushdown"],
-    backExercises: ["Dual Handle, Dual Cable Pull (from TOP notch position)", "Dual Handle, Dual Cable Pull (from BOTTOM notch position)", " Overhead Single Bar Pulldown"],
-    shoulderExercises: ["Arnold Press", "Dual Handle Lateral Crossover", "Barbell Overhead Press"],
+    activeExercises: [],
+    allExercisesByMuscleGroup: [],
+    muscleGroups: [{ name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }],
+    chestExercises: [{ name: "Bench Press" }, { name: "Dual Handle Incline" }, { name: "Dual Handle Decline" }],
+    bicepsExercises: [{ name: "Free-Weight Curl Bar" }, { name: "Dual Handle}, {name:Single Cable Curl" }, { name: "Free=Weight Seated Dumbbell Curl" }, { name: "Rope Hammer Curl" }, { name: "Dual Handle, Dual Cable Curl" }],
+    tricepsExercises: [{ name: "Dual Handle, Reverse-Grip Pulldown" }, { name: "Rope Pulldown" }, { name: "Single Bar Cable Pushdown" }],
+    backExercises: [{ name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { name: " Overhead Single Bar Pulldown" }],
+    shouldersExercises: [{ name: "Arnold Press" }, { name: "Dual Handle Lateral Crossover" }, { name: "Barbell Overhead Press" }],
   },
-  mutations: {},
+  mutations: {
+    setActiveMuscleGroup(state, activeMuscleGroup) {
+      state.activeMuscleGroup = activeMuscleGroup;
+    },
+    setAllExercisesByMuscleGroup(state, activeMuscleGroup) {
+      let exercises = activeMuscleGroup.name.toLowerCase() + "Exercises"
+      console.log("exercises by MG: ", exercises)
+      console.log("found in state: ", state[exercises])
+      state.allExercisesByMuscleGroup = state[exercises]
+    }
+  },
   actions: {
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
     resetBearer() {
       api.defaults.headers.authorization = "";
+    },
+    setActiveMuscleGroup({ dispatch, commit }, activeMuscleGroup) {
+      dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
+      commit("setActiveMuscleGroup", activeMuscleGroup)
+    },
+    setAllExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
+      commit("setAllExercisesByMuscleGroup", activeMuscleGroup)
     }
   }
 });

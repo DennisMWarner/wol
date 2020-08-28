@@ -18,16 +18,7 @@
           <li class="nav-item" :class="{ active: $route.name == 'home' }">
             <router-link :to="{ name: 'home' }" class="nav-link pl-1">Home</router-link>
           </li>
-          <li
-            v-if="$auth.isAuthenticated"
-            class="nav-item"
-            :class="{ active: $route.name == 'workout' }"
-          >
-            <router-link
-              :to="{ name: 'workout-entry' }"
-              class="nav-link pl-1 text-white border rounded bg-secondary"
-            >Workout Entry</router-link>
-          </li>
+
           <li class="nav-item">
             <a class="nav-link text-warning" href="#">Thing 2</a>
           </li>

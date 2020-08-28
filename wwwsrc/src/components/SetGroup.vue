@@ -1,6 +1,6 @@
 <template>
   <div class="set-group row justify-content-left mx-3 mb-2 justify-content-center">
-    <single-set v-for="singleSet in setGroup" :setGroupData="singleSet" :key="singleSet.id"></single-set>
+    <single-set v-for="activeSet in activeSets" :activeSetData="activeSet" :key="activeSet.id"></single-set>
     <div class="row">
       <div class="col-12">
         <add-set-button />
@@ -19,8 +19,8 @@ export default {
     return {};
   },
   computed: {
-    setGroup() {
-      return this.$store.state.plannedSets;
+    activeSets() {
+      return this.$store.state.activeSets;
     },
   },
   methods: {},

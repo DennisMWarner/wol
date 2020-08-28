@@ -2,8 +2,8 @@
   <div>
     <div class="border border-warning shadow rounded px-1 mb-2 bg-info">
       <muscle-group />
-      <exercise v-for="exercise in exercises" :exerciseData="exercise" :key="exercise.name" />
-      <set-group v-for="activeSet in activeSets" :activeSetData="activeSet" :key="activeSet.id" />
+      <exercise />
+      <set-group />
     </div>
     <add-muscle-group-button />
     <add-exercise-button />

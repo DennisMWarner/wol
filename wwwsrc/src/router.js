@@ -4,7 +4,7 @@ import Router from "vue-router";
 import Home from "./views/Home.vue";
 // @ts-ignore
 // import Dashboard from "./views/Dashboard.vue";
-import EntryForm from "./views/EntryForm.vue"
+
 
 import { authGuard } from "@bcwdev/auth0-vue";
 
@@ -17,11 +17,7 @@ export default new Router({
       name: "home",
       component: Home
     },
-    {
-      path: "/",
-      name: "workout-entry",
-      component: EntryForm
-    },
+
     // {
     //   path: "/dashboard",
     //   name: "dashboard",
