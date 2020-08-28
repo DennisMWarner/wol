@@ -25,7 +25,7 @@ export default new Vuex.Store({
     allExercisesByMuscleGroup: [],
     muscleGroups: [{ name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }],
     chestExercises: [{ name: "Bench Press" }, { name: "Dual Handle Incline" }, { name: "Dual Handle Decline" }],
-    bicepsExercises: [{ name: "Free-Weight Curl Bar" }, { name: "Dual Handle}, {name:Single Cable Curl" }, { name: "Free=Weight Seated Dumbbell Curl" }, { name: "Rope Hammer Curl" }, { name: "Dual Handle, Dual Cable Curl" }],
+    bicepsExercises: [{ name: "Free-Weight Curl Bar" }, { name: "Dual Handle, Single Cable Curl" }, { name: "Free-Weight Seated Dumbbell Curl" }, { name: "Rope Hammer Curl" }, { name: "Dual Handle, Dual Cable Curl" }],
     tricepsExercises: [{ name: "Dual Handle, Reverse-Grip Pulldown" }, { name: "Rope Pulldown" }, { name: "Single Bar Cable Pushdown" }],
     backExercises: [{ name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { name: " Overhead Single Bar Pulldown" }],
     shouldersExercises: [{ name: "Arnold Press" }, { name: "Dual Handle Lateral Crossover" }, { name: "Barbell Overhead Press" }],
@@ -37,6 +37,9 @@ export default new Vuex.Store({
     setActiveExercise(state, activeExercise) {
       state.activeExercise = activeExercise;
     },
+    setActiveExercises(state, activeExercise) {
+      state.activeExercises.push(activeExercise)
+    },
     setAllExercisesByMuscleGroup(state, activeMuscleGroup) {
       let exercises = activeMuscleGroup.name.toLowerCase() + "Exercises"
       console.log("exercises by MG: ", exercises)
@@ -45,6 +48,10 @@ export default new Vuex.Store({
     },
     setActiveSet(state, activeSet) {
       state.activeSets.push(activeSet)
+    },
+    addNewExercise(state, newExercise) {
+      let exercises = newExercise.muscleGroupName.toLowerCase() + "Exercises"
+      state[exercises].push({ name: newExercise.name })
     }
   },
   actions: {
@@ -59,7 +66,7 @@ export default new Vuex.Store({
       commit("setActiveMuscleGroup", activeMuscleGroup)
     },
     setActiveExercise({ dispatch, commit }, activeExercise) {
-      // dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
+      dispatch("setActiveExercises", activeExercise)
       commit("setActiveExercise", activeExercise)
     },
     setAllExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
@@ -67,6 +74,11 @@ export default new Vuex.Store({
     },
     saveSetData({ commit }, activeSet) {
       commit("setActiveSet", activeSet)
+    },
+    addNewExercise({ dispatch, commit }, newExercise) {
+      commit("addNewExercise", newExercise);
+      dispatch("setActiveExercise", newExercise)
+
     }
   }
 });

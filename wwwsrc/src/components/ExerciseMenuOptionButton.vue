@@ -23,7 +23,6 @@ export default {
         "setActiveExercise",
         this.exerciseMenuOptionButtonData
       );
-      this.$store.state.activeExercises.push(this.exerciseMenuOptionButtonData);
     },
   },
   components: {},

@@ -57,7 +57,7 @@
               <div>
                 <button
                   class="btn btn-success btn-block border border-white text-white rounded"
-                  data-dismiss="modal"
+                  type="submit"
                   @click="saveSetData()"
                 >
                   <h5 class="pt-1">Save This Set</h5>
@@ -85,10 +85,11 @@ export default {
   methods: {
     saveSetData() {
       this.activeSet.name = "Set ";
-
-      this.$store.dispatch("saveSetData", this.activeSet);
-
-      this.activeSet = {};
+      if (this.activeSet.weight && this.activeSet.reps) {
+        this.$store.dispatch("saveSetData", this.activeSet);
+        $("#addSetDataModal").modal("hide");
+        this.activeSet = {};
+      }
     },
   },
   components: {},
