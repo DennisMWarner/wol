@@ -5,14 +5,14 @@
       <exercise v-if="this.$store.state.activeMuscleGroup.name" />
     </div>
     <add-muscle-group-button v-if="this.$store.state.activeMuscleGroup.name" />
-    <add-exercise-button v-if="this.$store.state.activeExercise.name" />
+    <add-another-exercise-button v-if="this.$store.state.activeExercise.name" />
   </div>
 </template>
 
 <script>
 import MuscleGroup from "../components/MuscleGroup";
 import AddMuscleGroupButton from "../components/AddMuscleGroupButton";
-import AddExerciseButton from "../components/AddExerciseButton";
+import AddAnotherExerciseButton from "../components/AddAnotherExerciseButton";
 
 import SetGroup from "../components/SetGroup";
 import Exercise from "../components/Exercise";
@@ -40,7 +40,7 @@ export default {
     SetGroup,
     Exercise,
     AddMuscleGroupButton,
-    AddExerciseButton,
+    AddAnotherExerciseButton,
   },
 };
 </script>
