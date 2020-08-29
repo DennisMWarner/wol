@@ -1,6 +1,13 @@
 <template class="bg-dark home">
   <div>
-    <div class="border border-warning shadow rounded px-1 mb-2 bg-info">
+    <div
+      v-if="this.$store.state.activeMuscleGroups.length>0"
+      class="border border-warning shadow rounded px-1 mb-2 bg-info"
+    >
+      <muscle-groups />
+      <exercise v-if="this.$store.state.activeMuscleGroup.name" />
+    </div>
+    <div v-else class="border border-warning shadow rounded px-1 mb-2 bg-info">
       <muscle-group />
       <exercise v-if="this.$store.state.activeMuscleGroup.name" />
     </div>
@@ -11,6 +18,7 @@
 
 <script>
 import MuscleGroup from "../components/MuscleGroup";
+import MuscleGroups from "../components/MuscleGroups";
 import AddMuscleGroupButton from "../components/AddMuscleGroupButton";
 import AddAnotherExerciseButton from "../components/AddAnotherExerciseButton";
 
@@ -37,6 +45,7 @@ export default {
   },
   components: {
     MuscleGroup,
+    MuscleGroups,
     SetGroup,
     Exercise,
     AddMuscleGroupButton,

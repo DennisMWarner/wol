@@ -1,7 +1,10 @@
 <template>
   <div class="add-set-button">
     <div class="row">
-      <div class="col-12" v-if="this.$store.state.activeSets.length>0">
+      <div
+        class="col-12"
+        v-if="this.$store.state.activeSets.filter(as=>as.exercise==this.$store.state.activeExercise.name).length>0"
+      >
         <button
           class="btn-outline-light btn-sm btn bg-success text-white mt-2"
           data-target="#addSetDataModal"
@@ -85,6 +88,7 @@ export default {
   methods: {
     saveSetData() {
       this.activeSet.name = "Set ";
+      this.activeSet.exercise = this.$store.state.activeExercise.name;
       if (this.activeSet.weight && this.activeSet.reps) {
         this.$store.dispatch("saveSetData", this.activeSet);
         $("#addSetDataModal").modal("hide");

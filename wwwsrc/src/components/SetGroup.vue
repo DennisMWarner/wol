@@ -20,7 +20,9 @@ export default {
   },
   computed: {
     activeSets() {
-      return this.$store.state.activeSets;
+      return this.$store.state.activeSets.filter(
+        (as) => as.exercise == this.$store.state.activeExercise.name
+      );
     },
   },
   methods: {},

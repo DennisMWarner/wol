@@ -40,7 +40,7 @@ export default {
   computed: {},
   methods: {},
   components: { MuscleGroupMenuOptions },
-  props: [],
+  props: ["muscleGroupData"],
 };
 </script>
 
