@@ -6,7 +6,6 @@
           class="btn-outline-light btn-sm btn bg-warning text-white text-center mb-1 mx-3 w-75"
           data-toggle="modal"
           data-target="#addMuscleGroupModal"
-          @click="resetActiveExercise()"
         >Add Another Muscle Group</button>
       </div>
     </div>

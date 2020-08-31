@@ -5,11 +5,11 @@
       class="border border-warning shadow rounded px-1 mb-2 bg-info"
     >
       <muscle-groups />
-      <exercise v-if="this.$store.state.activeMuscleGroup.name" />
+      <!-- <exercise v-if="this.$store.state.activeMuscleGroup.name" /> -->
     </div>
     <div v-else class="border border-warning shadow rounded px-1 mb-2 bg-info">
       <muscle-group />
-      <exercise v-if="this.$store.state.activeMuscleGroup.name" />
+      <!-- <exercise v-if="this.$store.state.activeMuscleGroup.name" /> -->
     </div>
     <add-muscle-group-button v-if="this.$store.state.activeMuscleGroup.name" />
     <add-another-exercise-button v-if="this.$store.state.activeExercise.name" />

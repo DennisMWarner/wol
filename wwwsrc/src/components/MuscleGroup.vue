@@ -3,8 +3,9 @@
     <div
       class="col-12 mt-2 text-white border shadow border-white bg-warning rounded px-2 pt-1 mb-2 text-center"
       v-if="this.$store.state.activeMuscleGroup.name"
+      @click="setActiveMuscleGroup()"
     >
-      <h4>{{this.$store.state.activeMuscleGroup.name}}</h4>
+      <h4>{{muscleGroupData.name}}</h4>
     </div>
     <div v-else class="col-12 p-0">
       <button
@@ -26,20 +27,37 @@
       </div>
     </div>
     <!-------------------------------------------------------------------------->
+    <div v-if="this.$store.state.activeMuscleGroups.length>0">
+      <exercises-by-muscle-group />
+    </div>
   </div>
 </template>
 
 
 <script>
+// import Exercise from "../components/Exercise";
+import ExercisesByMuscleGroup from "../components/ExercisesByMuscleGroup";
 import MuscleGroupMenuOptions from "../components/MuscleGroupMenuOptions";
 export default {
   name: "muscle-group",
   data() {
     return {};
   },
-  computed: {},
-  methods: {},
-  components: { MuscleGroupMenuOptions },
+  computed: {
+    excercisesByMuscleGroup() {
+      return this.$store.state.activeExercises.filter(
+        (ae) => ae.exercise == this.$store.state.activeMuscleGroups.name
+      );
+    },
+  },
+  methods: {
+    setActiveMuscleGroup() {
+      this.$store.state.activeExercise = {};
+      console.log("sending: ", this.muscleGroupData.name);
+      this.$store.dispatch("setActiveMuscleGroup", this.muscleGroupData);
+    },
+  },
+  components: { MuscleGroupMenuOptions, ExercisesByMuscleGroup },
   props: ["muscleGroupData"],
 };
 </script>
