@@ -88,11 +88,12 @@ export default {
   methods: {
     saveSetData() {
       console.log("activeSets length: ", this.$store.state.activeSets.length);
-      if (this.$store.state.activeSets.length < 1) {
+      if (this.$store.state.activeSetsByExercise.length < 1) {
         this.activeSet.name = "Set 1";
       } else {
         this.activeSet.name =
-          "Set " + (this.$store.state.activeSets.length + 1).toString();
+          "Set " +
+          (this.$store.state.activeSetsByExercise.length + 1).toString();
       }
       this.activeSet.exercise = this.$store.state.activeExercise.name;
       if (this.activeSet.weight && this.activeSet.reps) {

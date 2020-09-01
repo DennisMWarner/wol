@@ -1,16 +1,13 @@
 <template>
   <div class="exercise">
-    <div
-      class="justify-content-around mx-0"
-      v-if="this.exerciseData.name"
-      @click="setActiveSetsByExercise()"
-    >
+    <div class="justify-content-around mx-0" v-if="this.exerciseData.name">
       <div
         class="mx-2 text-white border shadow border-white bg-secondary rounded text-left p-1 mb-2"
+        @click="setActiveSetsByExercise()"
       >
         <p>{{this.exerciseData.name}}</p>
       </div>
-      <set-group v-if="this.$store.state.activeExercise.name" />
+      <set-group v-if="this.$store.state.activeExercise.name == this.exerciseData.name" />
     </div>
 
     <div v-else class="col-12 p-0">
@@ -49,7 +46,22 @@ export default {
   computed: {},
   methods: {
     setActiveSetsByExercise() {
-      this.$store.dispatch("setActiveSetsByExercise", this.exerciseData);
+      console.log(
+        "matches?: ",
+        this.$store.state.activeExercise.name,
+        this.exerciseData.name
+      );
+      if (this.$store.state.activeExercise.name == this.exerciseData.name) {
+        this.$store.state.activeSetsByExercise = [];
+        this.$store.state.activeExercise = {};
+      } else {
+        this.$store.dispatch("setActiveSetsByExercise", this.exerciseData);
+      }
+      console.log(
+        "setActiveSetsByExercise called... :",
+        this.exerciseData.name,
+        this.$store.state.activeExercise.name
+      );
     },
   },
   components: { ExerciseMenuOptions, SetGroup },

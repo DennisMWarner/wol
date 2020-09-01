@@ -13,7 +13,7 @@
         data-toggle="modal"
         data-target="#addMuscleGroupModal"
       >
-        <h5 class="mt-2">Add the first muscle groupa...</h5>
+        <h5 class="mt-2">Add the first muscle group...</h5>
       </button>
     </div>
     <!-----------------addMuscleGroupModal------------------------------------->
@@ -49,11 +49,15 @@ export default {
   computed: {},
 
   methods: {
-    setActiveMuscleGroup() {
+    async setActiveMuscleGroup() {
       this.$store.state.activeExercise = {};
-      this.$store.state.activeSets = {};
-
-      this.$store.dispatch("setActiveMuscleGroup", this.muscleGroupData);
+      await this.$store.dispatch("setActiveMuscleGroup", this.muscleGroupData);
+      if (this.$store.state.activeExercisesByMuscleGroup.length == 1) {
+        this.$store.dispatch(
+          "setActiveSetsByExercise",
+          this.$store.state.activeExercisesByMuscleGroup[0]
+        );
+      }
     },
   },
   components: { MuscleGroupMenuOptions, ExercisesByMuscleGroup },

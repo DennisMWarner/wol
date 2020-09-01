@@ -19,6 +19,7 @@ export default {
   computed: {},
   methods: {
     setActiveExercise() {
+      this.$store.state.activeSetsByExercise = [];
       this.$store.dispatch(
         "setActiveExercise",
         this.exerciseMenuOptionButtonData

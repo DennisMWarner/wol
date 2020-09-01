@@ -67,7 +67,7 @@ export default new Vuex.Store({
       state.activeSets.push(activeSet)
     },
     setActiveSetsByExercise(state, activeExercise) {
-      state.activeSetsByExercise = state.activeExercises.filter(ae => ae.exercise = activeExercise.name)
+      state.activeSetsByExercise = state.activeSets.filter(ae => ae.exercise == activeExercise.name)
 
     }
   },
@@ -97,8 +97,9 @@ export default new Vuex.Store({
     setActiveExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
       commit("setActiveExercisesByMuscleGroup", activeMuscleGroup)
     },
-    saveSetData({ commit }, activeSet) {
-      commit("setActiveSet", activeSet)
+    async saveSetData({ dispatch, commit }, activeSet) {
+      await commit("setActiveSet", activeSet);
+      dispatch("setActiveSetsByExercise", this.state.activeExercise)
     },
     addNewExercise({ dispatch, commit }, newExercise) {
       commit("addNewExercise", newExercise);
@@ -106,6 +107,7 @@ export default new Vuex.Store({
 
     },
     setActiveSetsByExercise({ dispatch, commit }, activeExercise) {
+      dispatch("setActiveExercise", activeExercise)
       commit("setActiveSetsByExercise", activeExercise)
     }
   }
