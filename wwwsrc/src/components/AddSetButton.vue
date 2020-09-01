@@ -1,6 +1,6 @@
 <template>
   <div class="add-set-button">
-    <div class="row">
+    <div class="row my-2">
       <div
         class="col-12"
         v-if="this.$store.state.activeSets.filter(as=>as.exercise==this.$store.state.activeExercise.name).length>0"

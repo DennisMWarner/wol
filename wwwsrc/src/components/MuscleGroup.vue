@@ -1,5 +1,5 @@
 <template>
-  <div class="muscle-group mx-auto">
+  <div class="muscle-group mx-auto my-auto">
     <div
       class="mt-2 text-white border shadow border-white bg-warning rounded px-2 pt-1 mb-2 text-center"
       v-if="this.$store.state.activeMuscleGroup.name"
@@ -7,13 +7,13 @@
     >
       <h4>{{muscleGroupData.name}}</h4>
     </div>
-    <div v-else class="p-0">
+    <div v-else class="px-1">
       <button
-        class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded p-0 mb-2 text-center"
+        class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded py-1 mb-2 text-center"
         data-toggle="modal"
         data-target="#addMuscleGroupModal"
       >
-        <h5 class="mt-2">Add the first muscle group...</h5>
+        <h5 class="mt-2">START A NEW WORKOUT</h5>
       </button>
     </div>
     <!-----------------addMuscleGroupModal------------------------------------->

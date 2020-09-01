@@ -2,7 +2,7 @@
   <div class="exercise">
     <div class="justify-content-around mx-0" v-if="this.exerciseData.name">
       <div
-        class="mx-2 text-white border shadow border-white bg-secondary rounded text-left p-1 mb-2"
+        class="mx-2 text-white border shadow border-white bg-secondary rounded text-left p-1 mt-2 mb-2"
         @click="setActiveSetsByExercise()"
       >
         <p>{{this.exerciseData.name}}</p>
@@ -10,9 +10,9 @@
       <set-group v-if="this.$store.state.activeExercise.name == this.exerciseData.name" />
     </div>
 
-    <div v-else class="col-12 p-0">
+    <div v-else class="w-75">
       <button
-        class="btn w-100 mt-2 text-white border shadow border-white bg-secondary rounded p-0 mb-2 text-center"
+        class="btn mt-2 text-white border shadow border-white bg-secondary rounded text-center"
         data-toggle="modal"
         data-target="#addExerciseModal"
       >

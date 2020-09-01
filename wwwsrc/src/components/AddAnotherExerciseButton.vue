@@ -1,5 +1,5 @@
 <template>
-  <div class="add-another-exercise-button">
+  <div class="add-another-exercise-button mt-2">
     <div class="row text-center">
       <div class="col-12">
         <button
