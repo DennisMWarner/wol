@@ -1,19 +1,19 @@
 <template>
-  <div class="muscle-group row w-100 mx-auto">
+  <div class="muscle-group mx-auto">
     <div
-      class="col-12 mt-2 text-white border shadow border-white bg-warning rounded px-2 pt-1 mb-2 text-center"
+      class="mt-2 text-white border shadow border-white bg-warning rounded px-2 pt-1 mb-2 text-center"
       v-if="this.$store.state.activeMuscleGroup.name"
       @click="setActiveMuscleGroup()"
     >
       <h4>{{muscleGroupData.name}}</h4>
     </div>
-    <div v-else class="col-12 p-0">
+    <div v-else class="p-0">
       <button
         class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded p-0 mb-2 text-center"
         data-toggle="modal"
         data-target="#addMuscleGroupModal"
       >
-        <h5 class="mt-2">Add a muscle group...</h5>
+        <h5 class="mt-2">Add the first muscle groupa...</h5>
       </button>
     </div>
     <!-----------------addMuscleGroupModal------------------------------------->
@@ -27,7 +27,10 @@
       </div>
     </div>
     <!-------------------------------------------------------------------------->
-    <div v-if="this.$store.state.activeMuscleGroups.length>0">
+
+    <div
+      v-if="this.$store.state.activeMuscleGroups.length>0 && this.muscleGroupData.name ==this.$store.state.activeMuscleGroup.name"
+    >
       <exercises-by-muscle-group />
     </div>
   </div>
@@ -43,17 +46,13 @@ export default {
   data() {
     return {};
   },
-  computed: {
-    excercisesByMuscleGroup() {
-      return this.$store.state.activeExercises.filter(
-        (ae) => ae.exercise == this.$store.state.activeMuscleGroups.name
-      );
-    },
-  },
+  computed: {},
+
   methods: {
     setActiveMuscleGroup() {
       this.$store.state.activeExercise = {};
-      console.log("sending: ", this.muscleGroupData.name);
+      this.$store.state.activeSets = {};
+
       this.$store.dispatch("setActiveMuscleGroup", this.muscleGroupData);
     },
   },

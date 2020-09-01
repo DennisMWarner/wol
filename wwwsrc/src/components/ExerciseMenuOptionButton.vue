@@ -23,6 +23,15 @@ export default {
         "setActiveExercise",
         this.exerciseMenuOptionButtonData
       );
+      if (
+        this.$store.state.activeExercises.findIndex(
+          (ae) => ae.name == this.exerciseMenuOptionButtonData.name
+        ) < 0
+      ) {
+        this.$store.state.activeExercises.push(
+          this.exerciseMenuOptionButtonData
+        );
+      }
     },
   },
   components: {},

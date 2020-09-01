@@ -23,11 +23,21 @@ export default {
         "setActiveMuscleGroup",
         this.muscleGroupMenuOptionButtonData
       );
-      this.$store.state.activeMuscleGroups.push(
-        this.muscleGroupMenuOptionButtonData
+      if (
+        this.$store.state.activeMuscleGroups.findIndex(
+          (amg) => amg.name == this.muscleGroupMenuOptionButtonData.name
+        ) < 0
+      ) {
+        this.$store.state.activeMuscleGroups.push(
+          this.muscleGroupMenuOptionButtonData
+        );
+      }
+      console.log(
+        "result of find: ",
+        this.$store.state.activeMuscleGroups.findIndex(
+          (amg) => amg.name == this.muscleGroupMenuOptionButtonData.name
+        ) < 0
       );
-      console.log("activeMuscleGroup: ", this.$store.state.activeMuscleGroup);
-      console.log("activeMuscleGroups: ", this.$store.state.activeMuscleGroups);
     },
   },
   components: {},

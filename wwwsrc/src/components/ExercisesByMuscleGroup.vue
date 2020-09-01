@@ -2,7 +2,7 @@
   <div class="exercises-by-muscle-group">
     <div
       v-if="this.$store.state.activeExercises.filter(
-        (ae) => ae.exercise == this.$store.state.activeMuscleGroup.name).length>0"
+        (ae) => ae.muscleGroup == this.$store.state.activeMuscleGroup.name).length>0"
     >
       <exercise
         v-for="excerciseByMuscleGroup in excercisesByMuscleGroup"
@@ -10,9 +10,9 @@
         :key="excerciseByMuscleGroup.id"
       />
     </div>
-    <div v-else class="col-12 p-0">
+    <div v-else class="w-100">
       <button
-        class="btn mt-2 text-white border shadow border-white bg-secondary rounded p-0 mb-2 text-center"
+        class="btn btn-block mt-2 text-white border shadow border-white bg-secondary rounded p-0 mb-2 text-center"
         data-toggle="modal"
         data-target="#addExerciseModal"
       >
@@ -44,9 +44,7 @@ export default {
   },
   computed: {
     excercisesByMuscleGroup() {
-      this.$store.state.activeExercises.filter(
-        (ae) => ae.exercise == this.$store.state.activeMuscleGroups.name
-      );
+      return this.$store.state.activeExercisesByMuscleGroup;
     },
   },
   methods: {},

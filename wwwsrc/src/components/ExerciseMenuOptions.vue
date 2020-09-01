@@ -63,7 +63,7 @@ export default {
         this.newExercise.muscleGroupName = this.$store.state.activeMuscleGroup.name;
         $("#addNewExerciseModal").modal("hide");
         $("#addExerciseModal").modal("hide");
-        console.log("new exercise: ", this.newExercise);
+
         this.$store.dispatch("addNewExercise", this.newExercise);
       }
     },

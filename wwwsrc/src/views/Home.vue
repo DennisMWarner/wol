@@ -12,7 +12,7 @@
       <!-- <exercise v-if="this.$store.state.activeMuscleGroup.name" /> -->
     </div>
     <add-muscle-group-button v-if="this.$store.state.activeMuscleGroup.name" />
-    <add-another-exercise-button v-if="this.$store.state.activeExercise.name" />
+    <add-another-exercise-button v-if="this.$store.state.activeExercisesByMuscleGroup.length>0" />
   </div>
 </template>
 

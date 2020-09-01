@@ -1,10 +1,14 @@
 <template>
   <div class="exercise">
-    <div class="row justify-content-around mx-0" v-if="this.$store.state.activeExercise.name">
+    <div
+      class="justify-content-around mx-0"
+      v-if="this.exerciseData.name"
+      @click="setActiveSetsByExercise()"
+    >
       <div
-        class="col-12 mx-2 text-white border shadow border-white bg-secondary rounded text-left py-1"
+        class="mx-2 text-white border shadow border-white bg-secondary rounded text-left p-1 mb-2"
       >
-        <p>{{this.$store.state.activeExercise.name}}</p>
+        <p>{{this.exerciseData.name}}</p>
       </div>
       <set-group v-if="this.$store.state.activeExercise.name" />
     </div>
@@ -43,7 +47,11 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    setActiveSetsByExercise() {
+      this.$store.dispatch("setActiveSetsByExercise", this.exerciseData);
+    },
+  },
   components: { ExerciseMenuOptions, SetGroup },
   props: ["exerciseData"],
 };

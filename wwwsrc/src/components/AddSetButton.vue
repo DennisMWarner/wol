@@ -87,13 +87,20 @@ export default {
   computed: {},
   methods: {
     saveSetData() {
-      this.activeSet.name = "Set ";
+      console.log("activeSets length: ", this.$store.state.activeSets.length);
+      if (this.$store.state.activeSets.length < 1) {
+        this.activeSet.name = "Set 1";
+      } else {
+        this.activeSet.name =
+          "Set " + (this.$store.state.activeSets.length + 1).toString();
+      }
       this.activeSet.exercise = this.$store.state.activeExercise.name;
       if (this.activeSet.weight && this.activeSet.reps) {
         this.$store.dispatch("saveSetData", this.activeSet);
         $("#addSetDataModal").modal("hide");
         this.activeSet = {};
       }
+      console.log("activeSets length: ", this.$store.state.activeSets.length);
     },
   },
   components: {},

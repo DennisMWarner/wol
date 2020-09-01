@@ -18,17 +18,19 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     activeSets: [],
+    activeSetsByExercise: [],
     activeMuscleGroup: {},
     activeMuscleGroups: [],
     activeExercise: {},
     activeExercises: [],
     allExercisesByMuscleGroup: [],
+    activeExercisesByMuscleGroup: [],
     muscleGroups: [{ name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }],
-    chestExercises: [{ name: "Bench Press" }, { name: "Dual Handle Incline" }, { name: "Dual Handle Decline" }],
-    bicepsExercises: [{ name: "Free-Weight Curl Bar" }, { name: "Dual Handle, Single Cable Curl" }, { name: "Free-Weight Seated Dumbbell Curl" }, { name: "Rope Hammer Curl" }, { name: "Dual Handle, Dual Cable Curl" }],
-    tricepsExercises: [{ name: "Dual Handle, Reverse-Grip Pulldown" }, { name: "Rope Pulldown" }, { name: "Single Bar Cable Pushdown" }],
-    backExercises: [{ name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { name: " Overhead Single Bar Pulldown" }],
-    shouldersExercises: [{ name: "Arnold Press" }, { name: "Dual Handle Lateral Crossover" }, { name: "Barbell Overhead Press" }],
+    chestExercises: [{ muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" }],
+    bicepsExercises: [{ muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" }],
+    tricepsExercises: [{ muscleGroup: "Triceps", name: "Dual Handle, Reverse-Grip Pulldown" }, { muscleGroup: "Triceps", name: "Rope Pulldown" }, { muscleGroup: "Triceps", name: "Single Bar Cable Pushdown" }],
+    backExercises: [{ muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { muscleGroup: "Back", name: " Overhead Single Bar Pulldown" }],
+    shouldersExercises: [{ muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }],
   },
   mutations: {
     setActiveMuscleGroup(state, activeMuscleGroup) {
@@ -38,21 +40,35 @@ export default new Vuex.Store({
       state.activeExercise = activeExercise;
     },
     setActiveExercises(state, activeExercise) {
-      state.activeExercises.push(activeExercise);
+      if (
+        state.activeExercises.findIndex(
+          (ae) => ae.name == activeExercise.name
+        ) < 0
+      ) {
+        state.activeExercises.push(
+          activeExercise
+        );
+      };
     },
 
     setAllExercisesByMuscleGroup(state, activeMuscleGroup) {
       let exercises = activeMuscleGroup.name.toLowerCase() + "Exercises"
-      console.log("exercises by MG: ", exercises)
-      console.log("found in state: ", state[exercises])
+      // console.log("exercises by MG: ", exercises)
+      // console.log("found in state: ", state[exercises])
       state.allExercisesByMuscleGroup = state[exercises]
     },
+    setActiveExercisesByMuscleGroup(state, activeMuscleGroup) {
+      state.activeExercisesByMuscleGroup = state.activeExercises.filter(
+        (ae) => ae.muscleGroup == state.activeMuscleGroup.name
+      )
+    },
+
     setActiveSet(state, activeSet) {
       state.activeSets.push(activeSet)
     },
-    addNewExercise(state, newExercise) {
-      let exercises = newExercise.muscleGroupName.toLowerCase() + "Exercises"
-      state[exercises].push({ name: newExercise.name })
+    setActiveSetsByExercise(state, activeExercise) {
+      state.activeSetsByExercise = state.activeExercises.filter(ae => ae.exercise = activeExercise.name)
+
     }
   },
   actions: {
@@ -66,16 +82,20 @@ export default new Vuex.Store({
       dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
       commit("setActiveMuscleGroup", activeMuscleGroup)
     },
-    setActiveExercise({ dispatch, commit }, activeExercise) {
+    async setActiveExercise({ dispatch, commit }, activeExercise) {
+      await commit("setActiveExercise", activeExercise)
       dispatch("setActiveExercises", activeExercise)
-      commit("setActiveExercise", activeExercise)
     },
-    setActiveExercises({ commit }, activeExercise) {
-
+    setActiveExercises({ dispatch, commit }, activeExercise) {
+      dispatch("setActiveExercisesByMuscleGroup", activeExercise)
       commit("setActiveExercises", activeExercise)
     },
-    setAllExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
-      commit("setAllExercisesByMuscleGroup", activeMuscleGroup)
+    async setAllExercisesByMuscleGroup({ dispatch, commit }, activeMuscleGroup) {
+      await commit("setAllExercisesByMuscleGroup", activeMuscleGroup)
+      dispatch("setActiveExercisesByMuscleGroup", activeMuscleGroup)
+    },
+    setActiveExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
+      commit("setActiveExercisesByMuscleGroup", activeMuscleGroup)
     },
     saveSetData({ commit }, activeSet) {
       commit("setActiveSet", activeSet)
@@ -84,6 +104,9 @@ export default new Vuex.Store({
       commit("addNewExercise", newExercise);
       dispatch("setActiveExercise", newExercise)
 
+    },
+    setActiveSetsByExercise({ dispatch, commit }, activeExercise) {
+      commit("setActiveSetsByExercise", activeExercise)
     }
   }
 });
