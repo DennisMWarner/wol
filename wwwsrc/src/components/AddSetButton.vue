@@ -66,6 +66,15 @@
                   <h5 class="pt-1">Save This Set</h5>
                 </button>
               </div>
+              <div>
+                <button
+                  class="btn btn-dark btn-block border border-white text-white rounded mt-3"
+                  type="submit"
+                  data-dismiss="modal"
+                >
+                  <h6 class="pt-1">Cancel</h6>
+                </button>
+              </div>
             </form>
           </div>
         </div>
@@ -87,7 +96,6 @@ export default {
   computed: {},
   methods: {
     saveSetData() {
-      console.log("activeSets length: ", this.$store.state.activeSets.length);
       if (this.$store.state.activeSetsByExercise.length < 1) {
         this.activeSet.name = "Set 1";
       } else {
@@ -99,9 +107,10 @@ export default {
       if (this.activeSet.weight && this.activeSet.reps) {
         this.$store.dispatch("saveSetData", this.activeSet);
         $("#addSetDataModal").modal("hide");
+        console.log("activeSet sent: ", this.activeSet);
         this.activeSet = {};
       }
-      console.log("activeSets length: ", this.$store.state.activeSets.length);
+      console.log("activeSet sent: ", this.activeSet);
     },
   },
   components: {},

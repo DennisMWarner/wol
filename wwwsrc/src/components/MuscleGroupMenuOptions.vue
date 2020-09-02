@@ -1,10 +1,14 @@
 <template>
-  <div class="muscle-group-menu-options">
+  <div class="muscle-group-menu-options text-center">
     <muscle-group-menu-option-button
       v-for="muscleGroupMenuOptionButton in muscleGroupMenuOptionButtons"
       :muscleGroupMenuOptionButtonData="muscleGroupMenuOptionButton"
       :key="muscleGroupMenuOptionButton.name"
     />
+    <button
+      class="btn btn-white bg-dark border rounded text-white border-white w-75 mt-3"
+      data-dismiss="modal"
+    >Cancel</button>
   </div>
 </template>
 

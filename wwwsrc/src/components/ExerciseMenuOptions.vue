@@ -6,10 +6,14 @@
       :key="exerciseMenuOptionButton.id"
     />
     <button
-      class="btn btn-white bg-white border rounded text-secondary border-secondary w-75 mb-3"
+      class="btn btn-white bg-white border rounded text-dark border-white w-75 mb-3"
       data-toggle="modal"
       data-target="#addNewExerciseModal"
     >Add New...</button>
+    <button
+      class="btn btn-white bg-dark border rounded text-white border-white w-75 mt-3"
+      data-dismiss="modal"
+    >Cancel</button>
     <!-----------------Add New Exercise Modal----------------------------------->
     <div class="modal" tabindex="-1" role="dialog" id="addNewExerciseModal">
       <div class="modal-dialog-centered" role="document">
