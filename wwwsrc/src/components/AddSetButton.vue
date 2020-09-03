@@ -37,7 +37,7 @@
                   class="form-control w-75 mx-auto text-center border border-success"
                   id="setWeight"
                   placeholder="Enter weight here..."
-                  v-model="activeSet.weight"
+                  v-model.number="activeSet.weight"
                   required
                 />
               </div>
@@ -53,7 +53,7 @@
                   class="form-control w-75 mx-auto text-center"
                   id="setReps"
                   placeholder="Enter reps here..."
-                  v-model="activeSet.reps"
+                  v-model.number="activeSet.repCount"
                   required
                 />
               </div>
@@ -103,11 +103,12 @@ export default {
           "Set " +
           (this.$store.state.activeSetsByExercise.length + 1).toString();
       }
-      this.activeSet.exercise = this.$store.state.activeExercise.name;
-      if (this.activeSet.weight && this.activeSet.reps) {
+      this.activeSet.exerciseName = this.$store.state.activeExercise.name;
+      if (this.activeSet.weight && this.activeSet.repCount) {
         this.$store.dispatch("saveSetData", this.activeSet);
         $("#addSetDataModal").modal("hide");
         console.log("activeSet sent: ", this.activeSet);
+        this.activeSet.musclegroup = this.$store.state.activeMuscleGroup.name;
         this.activeSet = {};
       }
       console.log("activeSet sent: ", this.activeSet);

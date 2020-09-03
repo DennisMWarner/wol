@@ -15,6 +15,12 @@
       >
         <h5 class="mt-2">START A NEW WORKOUT</h5>
       </button>
+      <button
+        class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded py-1 mb-2 text-center"
+        @click="getNextWorkout()"
+      >
+        <h5 class="mt-2">CONTINUE WITH PROGRAM</h5>
+      </button>
     </div>
     <!-----------------addMuscleGroupModal------------------------------------->
     <div class="modal" tabindex="-1" role="dialog" id="addMuscleGroupModal">
@@ -58,6 +64,12 @@ export default {
           this.$store.state.activeExercisesByMuscleGroup[0]
         );
       }
+    },
+    async getNextWorkout() {
+      await this.$store.dispatch(
+        "getLastWorkoutInProgram",
+        this.$auth.user.sub
+      );
     },
   },
   components: { MuscleGroupMenuOptions, ExercisesByMuscleGroup },

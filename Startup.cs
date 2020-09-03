@@ -45,14 +45,14 @@ namespace Wol
       {
         options.AddPolicy("CorsDevPolicy", builder =>
               {
-            builder
-                      .WithOrigins(new string[]{
+                builder
+                          .WithOrigins(new string[]{
                             "http://localhost:8080"
-                  })
-                      .AllowAnyMethod()
-                      .AllowAnyHeader()
-                      .AllowCredentials();
-          });
+                      })
+                          .AllowAnyMethod()
+                          .AllowAnyHeader()
+                          .AllowCredentials();
+              });
       });
 
       services.AddControllers();
@@ -61,7 +61,8 @@ namespace Wol
       services.AddScoped<IDbConnection>(x => CreateDbConnection());
 
       //NOTE REGISTER SERVICES AND REPOSITORIES
-      services.AddTransient<KeepsService>();
+      services.AddTransient<SetsService>();
+      services.AddTransient<SetsRepository>();
     }
 
     private IDbConnection CreateDbConnection()

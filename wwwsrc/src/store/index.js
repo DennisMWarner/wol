@@ -25,6 +25,7 @@ export default new Vuex.Store({
     activeExercises: [],
     allExercisesByMuscleGroup: [],
     activeExercisesByMuscleGroup: [],
+    lastWorkoutInProgram: [],
     muscleGroups: [{ name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }],
     chestExercises: [{ muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" }],
     bicepsExercises: [{ muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" }],
@@ -69,6 +70,15 @@ export default new Vuex.Store({
     setActiveSetsByExercise(state, activeExercise) {
       state.activeSetsByExercise = state.activeSets.filter(ae => ae.exercise == activeExercise.name)
 
+    },
+    setLastWorkoutInProgram(state, lastWorkoutInProgram) {
+      let activeMuscleGroup = {};
+      console.log("lastWorkoutInProgram in state: ", lastWorkoutInProgram)
+      state.lastWorkoutInProgram = lastWorkoutInProgram;
+      activeMuscleGroup.name = lastWorkoutInProgram[0].muscleGroup
+      state.activeMuscleGroups.push(activeMuscleGroup)
+      state.activeMuscleGroup = state.activeMuscleGroups[0];
+
     }
   },
   actions: {
@@ -97,9 +107,17 @@ export default new Vuex.Store({
     setActiveExercisesByMuscleGroup({ commit }, activeMuscleGroup) {
       commit("setActiveExercisesByMuscleGroup", activeMuscleGroup)
     },
-    async saveSetData({ dispatch, commit }, activeSet) {
-      await commit("setActiveSet", activeSet);
-      dispatch("setActiveSetsByExercise", this.state.activeExercise)
+    async saveSetData({ dispatch, commit }, newSet) {
+      // await commit("setActiveSet", activeSet);
+      // dispatch("setActiveSetsByExercise", this.state.activeExercise)
+
+      try {
+        let res = await api.post("sets", newSet)
+        // dispatch("setActiveSetsByExercise", this.state.activeExercise)
+      } catch (error) {
+        console.error(error)
+
+      }
     },
     addNewExercise({ dispatch, commit }, newExercise) {
       commit("addNewExercise", newExercise);
@@ -109,6 +127,16 @@ export default new Vuex.Store({
     setActiveSetsByExercise({ dispatch, commit }, activeExercise) {
       dispatch("setActiveExercise", activeExercise)
       commit("setActiveSetsByExercise", activeExercise)
+    },
+    async getLastWorkoutInProgram({ dispatch, commit }, userId) {
+      try {
+        let res = await api.get("sets", userId)
+        commit("setLastWorkoutInProgram", res.data)
+      } catch (error) {
+        console.error(error)
+
+      }
+
     }
   }
 });

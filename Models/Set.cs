@@ -1,6 +1,6 @@
 namespace Wol.Models
 {
-  public class Keep
+  public class Set
   {
     public int Id { get; set; }
     public string Name { get; set; }
@@ -8,7 +8,7 @@ namespace Wol.Models
     public string ExerciseName { get; set; }
     public string MuscleGroup { get; set; }
     public string Img { get; set; }
-    public int Weight { get; set; }
+    public float Weight { get; set; }
     public int RepCount { get; set; }
 
 
