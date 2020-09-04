@@ -51,6 +51,24 @@ export default new Vuex.Store({
         );
       };
     },
+    setActiveMuscleGroups(state, payload) {
+      console.log("setActiveMuscleGroups called in mutations... received: ", payload)
+      payload.forEach(element => {
+        let activeMuscleGroup = {}
+        console.log("payload element: ", element)
+        if (
+          state.activeMuscleGroups.findIndex(
+            (amg) => amg.name == element.muscleGroup
+          ) < 0
+        ) {
+          activeMuscleGroup.name = element.muscleGroup
+          state.activeMuscleGroups.push(
+            activeMuscleGroup
+          );
+        };
+      }
+      )
+    },
 
     setAllExercisesByMuscleGroup(state, activeMuscleGroup) {
       let exercises = activeMuscleGroup.name.toLowerCase() + "Exercises"
@@ -66,6 +84,9 @@ export default new Vuex.Store({
 
     setActiveSet(state, activeSet) {
       state.activeSets.push(activeSet)
+    },
+    setActiveSets(state, activeSets) {
+      state.activeSets = activeSets
     },
     setActiveSetsByExercise(state, activeExercise) {
       state.activeSetsByExercise = state.activeSets.filter(ae => ae.exercise == activeExercise.name)
@@ -92,6 +113,13 @@ export default new Vuex.Store({
       dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
       commit("setActiveMuscleGroup", activeMuscleGroup)
     },
+    async setActiveMuscleGroups({ dispatch, commit }, payload) {
+      await commit("setActiveMuscleGroups", payload)
+
+
+
+    },
+
     async setActiveExercise({ dispatch, commit }, activeExercise) {
       await commit("setActiveExercise", activeExercise)
       dispatch("setActiveExercises", activeExercise)
@@ -128,10 +156,11 @@ export default new Vuex.Store({
       dispatch("setActiveExercise", activeExercise)
       commit("setActiveSetsByExercise", activeExercise)
     },
-    async getLastWorkoutInProgram({ dispatch, commit }, userId) {
+    async getSetsByUserId({ dispatch, commit }, userId) {
       try {
         let res = await api.get("sets", userId)
-        commit("setLastWorkoutInProgram", res.data)
+        commit("setActiveSets", res.data)
+        dispatch("setActiveMuscleGroups", res.data)
       } catch (error) {
         console.error(error)
 

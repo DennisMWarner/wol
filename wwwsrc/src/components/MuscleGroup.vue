@@ -2,12 +2,12 @@
   <div class="muscle-group mx-auto my-auto">
     <div
       class="mt-2 text-white border shadow border-white bg-warning rounded px-2 pt-1 mb-2 text-center"
-      v-if="this.$store.state.activeMuscleGroup.name"
+      v-if="this.$store.state.activeMuscleGroups.length>0"
       @click="setActiveMuscleGroup()"
     >
       <h4>{{muscleGroupData.name}}</h4>
     </div>
-    <div v-else class="px-1">
+    <div v-else-if="this.$store.state.activeSets.length<1" class="px-1">
       <button
         class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded py-1 mb-2 text-center"
         data-toggle="modal"
@@ -15,13 +15,16 @@
       >
         <h5 class="mt-2">START A NEW WORKOUT</h5>
       </button>
+    </div>
+    <div v-else>
       <button
         class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded py-1 mb-2 text-center"
-        @click="getNextWorkout()"
+        @click="getSetsByUserId()"
       >
         <h5 class="mt-2">CONTINUE WITH PROGRAM</h5>
       </button>
     </div>
+
     <!-----------------addMuscleGroupModal------------------------------------->
     <div class="modal" tabindex="-1" role="dialog" id="addMuscleGroupModal">
       <div class="modal-dialog-centered" role="document">
@@ -65,12 +68,12 @@ export default {
         );
       }
     },
-    async getNextWorkout() {
-      await this.$store.dispatch(
-        "getLastWorkoutInProgram",
-        this.$auth.user.sub
-      );
+    async getSetsByUserId() {
+      await this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
     },
+  },
+  mounted() {
+    this.getSetsByUserId();
   },
   components: { MuscleGroupMenuOptions, ExercisesByMuscleGroup },
   props: ["muscleGroupData"],
