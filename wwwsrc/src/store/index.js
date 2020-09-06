@@ -87,6 +87,34 @@ export default new Vuex.Store({
     },
     setActiveSets(state, activeSets) {
       state.activeSets = activeSets
+      state.activeSets.forEach(activeSet => {
+        let activeMuscleGroup = {}
+        let activeExercise = {}
+        if (
+          state.activeMuscleGroups.findIndex(
+            (amg) => amg.name == activeSet.muscleGroup
+          ) < 0
+        ) {
+          activeMuscleGroup.name = activeSet.muscleGroup
+          state.activeMuscleGroups.push(
+            activeMuscleGroup
+          );
+          if (
+            state.activeExercises.findIndex(
+              (ae) => ae.name == activeSet.exerciseName
+            ) < 0
+          ) {
+            console.log("activeSet.exerciseName: ", activeSet.exerciseName, activeExercise)
+            activeExercise.name = activeSet.exerciseName
+            activeExercise.muscleGroup = activeSet.muscleGroup
+            state.activeExercises.push(
+              activeExercise
+            );
+          };
+        };
+
+      }
+      )
     },
     setActiveSetsByExercise(state, activeExercise) {
       state.activeSetsByExercise = state.activeSets.filter(ae => ae.exercise == activeExercise.name)
@@ -109,12 +137,13 @@ export default new Vuex.Store({
     resetBearer() {
       api.defaults.headers.authorization = "";
     },
-    setActiveMuscleGroup({ dispatch, commit }, activeMuscleGroup) {
+    async setActiveMuscleGroup({ dispatch, commit }, activeMuscleGroup) {
+      await commit("setActiveMuscleGroup", activeMuscleGroup)
       dispatch("setAllExercisesByMuscleGroup", activeMuscleGroup)
-      commit("setActiveMuscleGroup", activeMuscleGroup)
     },
     async setActiveMuscleGroups({ dispatch, commit }, payload) {
       await commit("setActiveMuscleGroups", payload)
+      dispatch("setAllExercisesByMuscleGroup", payload)
 
 
 
@@ -160,7 +189,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("sets", userId)
         commit("setActiveSets", res.data)
-        dispatch("setActiveMuscleGroups", res.data)
+        // dispatch("setActiveMuscleGroups", res.data)
       } catch (error) {
         console.error(error)
 

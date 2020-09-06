@@ -61,6 +61,10 @@ export default {
     async setActiveMuscleGroup() {
       this.$store.state.activeExercise = {};
       await this.$store.dispatch("setActiveMuscleGroup", this.muscleGroupData);
+      console.log(
+        "muscleGroupData sent with setActiveMuscleGroup: ",
+        this.muscleGroupData
+      );
       if (this.$store.state.activeExercisesByMuscleGroup.length == 1) {
         this.$store.dispatch(
           "setActiveSetsByExercise",
@@ -68,13 +72,8 @@ export default {
         );
       }
     },
-    async getSetsByUserId() {
-      await this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
-    },
   },
-  mounted() {
-    this.getSetsByUserId();
-  },
+
   components: { MuscleGroupMenuOptions, ExercisesByMuscleGroup },
   props: ["muscleGroupData"],
 };

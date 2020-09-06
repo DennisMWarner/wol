@@ -46,11 +46,6 @@ export default {
   computed: {},
   methods: {
     setActiveSetsByExercise() {
-      console.log(
-        "matches?: ",
-        this.$store.state.activeExercise.name,
-        this.exerciseData.name
-      );
       if (this.$store.state.activeExercise.name == this.exerciseData.name) {
         this.$store.state.activeSetsByExercise = [];
         this.$store.state.activeExercise = {};

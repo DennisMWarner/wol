@@ -82,6 +82,7 @@ export default {
       this.$store.dispatch("setBearer", this.$auth.bearer);
       // console.log("this.$auth.user: ");
       // console.log(this.$auth.user);
+      this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
     },
     async logout() {
       this.$store.dispatch("resetBearer");
