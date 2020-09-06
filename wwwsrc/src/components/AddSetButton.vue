@@ -57,6 +57,22 @@
                   required
                 />
               </div>
+              <div class="form-group border border-white rounded py-3 bg-secondary">
+                <label
+                  for="formGroupExampleInput"
+                  class="w-75 bg-success border border-white text-white rounded"
+                >
+                  <h5 class="pt-1 text-left pl-2">Planning context:</h5>
+                </label>
+                <input
+                  type="text"
+                  class="form-control w-75 mx-auto text-center"
+                  id="setReps"
+                  placeholder="Enter reps here..."
+                  v-model="activeSet.context"
+                  required
+                />
+              </div>
               <div>
                 <button
                   class="btn btn-success btn-block border border-white text-white rounded"

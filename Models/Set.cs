@@ -11,7 +11,9 @@ namespace Wol.Models
     public float Weight { get; set; }
     public int RepCount { get; set; }
 
-
+    public string Date { get; set; }
+    public string Context { get; set; }
+    public int Cycle { get; set; }
   }
   // public class VaultKeepViewModel : Keep
   // {

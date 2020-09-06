@@ -11,14 +11,23 @@
               <div class="col-8">
                 <p
                   class="text-dark text-right"
-                >Plan: {{activeSetData.weight}} X {{activeSetData.reps}}</p>
+                >Plan: {{activeSetData.weight}} X {{activeSetData.repCount}}</p>
               </div>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-12 bg-success text-right text-white rounded-bottom border border-white">
-            <p>Actual: {{activeSetData.weight}} x {{activeSetData.reps}}</p>
+            <div class="row">
+              <div class="col-6 text-left text-white">
+                <p class="text-white">{{activeSetData.context}}</p>
+              </div>
+              <div class="col-6">
+                <p
+                  class="text-white text-right"
+                >Actual: {{activeSetData.weight}} X {{activeSetData.repCount}}</p>
+              </div>
+            </div>
           </div>
         </div>
       </div>

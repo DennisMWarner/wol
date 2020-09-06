@@ -1,5 +1,8 @@
 <template class="bg-dark home">
   <div>
+    <div class="row text-center text-white">
+      <div class="col-12">{{this.$store.state.activeDate.date}}</div>
+    </div>
     <div v-if="this.$auth.userInfo.sub">
       <div
         v-if="this.$store.state.activeMuscleGroups.length>0"
