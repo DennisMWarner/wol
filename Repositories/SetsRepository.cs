@@ -31,6 +31,15 @@ namespace Wol.Repositories
       newSet.Id = _db.ExecuteScalar<int>(sql, newSet);
       return newSet;
     }
+    internal bool Delete(string userId)
+    {
+      {
+        string sql = @"
+     DELETE FROM sets WHERE(userId = @UserId)";
+        int affectedRows = _db.Execute(sql, new { userId });
+        return affectedRows > 0;
+      }
+    }
 
   }
 }

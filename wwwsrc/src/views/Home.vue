@@ -17,11 +17,45 @@
       </div>
       <add-muscle-group-button v-if="this.$store.state.activeMuscleGroup.name" />
       <add-another-exercise-button v-if="this.$store.state.activeExercisesByMuscleGroup.length>0" />
+      <!-------------------clear DB button and modal------------------------>
+      <div v-if="this.$store.state.activeMuscleGroups.length>0" class="row text-center mt-4">
+        <div class="col-12">
+          <button
+            class="btn-outline-light btn-sm btn bg-danger text-white text-center mx-3 mb-1 w-75"
+            data-target="#clearDBModal"
+            data-toggle="modal"
+          >Clear Database</button>
+        </div>
+      </div>
+      <!-----------------Add Another Exercise Modal------------------------------>
+      <div class="modal" tabindex="-1" role="dialog" id="clearDBModal">
+        <div class="modal-dialog-centered" role="document">
+          <div class="modal-content bg-transparent">
+            <div
+              class="modal-body w-75 mx-auto no-gutters text-white text-center border rounded bg-danger"
+            >
+              <h1>This will clear the database!</h1>
+              <button
+                class="btn m-3 btn-primary border rounded border-white w-50"
+                data-dismiss="modal"
+              >Cancel</button>
+              <button
+                class="btn btn-danger border shadow rounded border-white w-50"
+                @click="clearDB()"
+                data-dismiss="modal"
+              >CLEAR DB</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!-------------------------------------------------------------------->
     </div>
     <div div v-else>
       <div class="row no-gutters text-center m-4 mt-5 pt-5">
-        <div class="col-12 text-center bg-warning border rounded text-white border-white pt-2 mt-5">
-          <h5>Please login to continue</h5>
+        <div class="col-12 text-center text-white pt-4 mt-5">
+          <button class="btn btn-warning pt-3 border rounded border-white" @click="login()">
+            <h5>Please login to continue</h5>
+          </button>
         </div>
       </div>
     </div>
@@ -51,8 +85,19 @@ export default {
     },
   },
   methods: {
+    async login() {
+      await this.$auth.loginWithPopup();
+      this.$store.dispatch("setBearer", this.$auth.bearer);
+      // console.log("this.$auth.user: ");
+      // console.log(this.$auth.user);
+      this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
+    },
+
     logout() {
       this.$store.dispatch("logout");
+    },
+    clearDB() {
+      this.$store.dispatch("clearDB", this.$auth.user.sub);
     },
   },
   components: {

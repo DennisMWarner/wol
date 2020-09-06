@@ -189,6 +189,10 @@ export default new Vuex.Store({
 
       }
 
+    },
+    async clearDB({ dispatch }, userId) {
+      await api.delete("sets/" + userId);
+      dispatch("getSetsByUserId", userId)
     }
   }
 });

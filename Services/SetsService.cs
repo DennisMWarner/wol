@@ -22,5 +22,13 @@ namespace Wol.Services
     {
       return _repo.Create(newSet);
     }
+    internal string Delete(string userId)
+    {
+      if (_repo.Delete(userId))
+      {
+        return "database data delorted.";
+      }
+      throw new Exception("Could not delete DB data");
+    }
   }
 }

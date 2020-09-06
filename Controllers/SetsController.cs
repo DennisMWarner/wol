@@ -48,6 +48,21 @@ namespace Wol.Controllers
         return BadRequest(e.Message);
       }
     }
+    [HttpDelete("{id}")]
+    [Authorize]
+    public ActionResult<string> Delete(string id)
+    {
+      try
+      {
+        var userClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        var userId = userClaim.Value;
+        return Ok(_ss.Delete(userId));
+      }
+      catch (System.Exception error)
+      {
+        return BadRequest(error.Message);
+      }
+    }
 
   }
 }
