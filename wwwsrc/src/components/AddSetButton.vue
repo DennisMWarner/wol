@@ -57,21 +57,28 @@
                   required
                 />
               </div>
-              <div class="form-group border border-white rounded py-3 bg-secondary">
-                <label
-                  for="formGroupExampleInput"
-                  class="w-75 bg-success border border-white text-white rounded"
+              <div
+                v-if="this.$store.state.activeContext.name"
+                class="border border-white py-3 mb-5 rounded shadow bg-secondary"
+              >
+                <button
+                  class="btn btn-success border border-white text-white rounded"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#add-context-modal"
                 >
-                  <h5 class="pt-1 text-left pl-2">Planning context:</h5>
-                </label>
-                <input
-                  type="text"
-                  class="form-control w-75 mx-auto text-center"
-                  id="setReps"
-                  placeholder="Enter reps here..."
-                  v-model="activeSet.context"
-                  required
-                />
+                  <h5 class="pt-1">{{this.$store.state.activeContext.name}}</h5>
+                </button>
+              </div>
+              <div v-else class="border border-white py-3 mb-5 rounded shadow bg-secondary">
+                <button
+                  class="btn btn-success border border-white text-white rounded"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#add-context-modal"
+                >
+                  <h5 class="pt-1">Set Context</h5>
+                </button>
               </div>
               <div>
                 <button
@@ -96,12 +103,23 @@
         </div>
       </div>
     </div>
-    <!----------------------------------------------------------------------------->
+    <!-----------------addContextModal------------------------------------->
+    <div class="modal" tabindex="-1" role="dialog" id="add-context-modal">
+      <div class="modal-dialog-centered" role="document">
+        <div class="modal-content bg-transparent">
+          <div class="modal-body w-75 mx-auto bg-success py-5 border rounded no-gutters">
+            <context-menu-options />
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-------------------------------------------------------------------------->
   </div>
 </template>
 
 
 <script>
+import ContextMenuOptions from "../components/ContextMenuOptions";
 export default {
   name: "add-set-button",
   data() {
@@ -112,6 +130,7 @@ export default {
   computed: {},
   methods: {
     saveSetData() {
+      this.activeSet.context = this.$store.state.activeContext.name;
       if (this.$store.state.activeSetsByExercise.length < 1) {
         this.activeSet.name = "Set 1";
       } else {
@@ -127,10 +146,11 @@ export default {
         this.activeSet.musclegroup = this.$store.state.activeMuscleGroup.name;
         this.activeSet = {};
       }
+
       console.log("activeSet sent: ", this.activeSet);
     },
   },
-  components: {},
+  components: { ContextMenuOptions },
 };
 </script>
 

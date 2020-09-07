@@ -18,6 +18,8 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     activeSets: [],
+    activeContexts: [{ name: "5-3-1" }, { name: "standard" }],
+    activeContext: {},
     activeSetsByExercise: [],
     activeMuscleGroup: {},
     activeMuscleGroups: [],
@@ -34,6 +36,9 @@ export default new Vuex.Store({
     shouldersExercises: [{ muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }],
   },
   mutations: {
+    setActiveContext(state, activeContext) {
+      state.activeContext = activeContext
+    },
     setActiveMuscleGroup(state, activeMuscleGroup) {
       state.activeMuscleGroup = activeMuscleGroup;
     },
@@ -171,7 +176,7 @@ export default new Vuex.Store({
       }
     },
     addNewExercise({ dispatch, commit }, newExercise) {
-      commit("addNewExercise", newExercise);
+      commit("setActiveExercises", newExercise);
       dispatch("setActiveExercise", newExercise)
 
     },

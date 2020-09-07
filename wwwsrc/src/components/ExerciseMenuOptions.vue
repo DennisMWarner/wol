@@ -69,6 +69,7 @@ export default {
         $("#addExerciseModal").modal("hide");
 
         this.$store.dispatch("addNewExercise", this.newExercise);
+        console.log("New exercise: ", this.newExercise);
       }
     },
   },

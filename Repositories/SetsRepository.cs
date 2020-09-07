@@ -37,7 +37,7 @@ namespace Wol.Repositories
         string sql = @"
      DELETE FROM sets WHERE(userId = @UserId)";
         int affectedRows = _db.Execute(sql, new { userId });
-        return affectedRows > 0;
+        return (affectedRows > 0 ? true : false);
       }
     }
 
