@@ -1,7 +1,12 @@
 <template class="bg-dark home">
   <div>
     <div class="row text-center text-white">
-      <div class="col-12">{{this.$store.state.activeDate.date}}</div>
+      <div
+        class="col-12"
+      >{{this.$store.state.activeDate.month}}-{{this.$store.state.activeDate.day}}-{{this.$store.state.activeDate.year}}</div>
+    </div>
+    <div class="row text-center text-white">
+      <div class="col-12">{{this.$store.state.activeDate.pastDate}}</div>
     </div>
     <div v-if="this.$auth.userInfo.sub">
       <div
@@ -59,10 +64,12 @@
         </div>
       </div>
     </div>
+    <date-picker />
   </div>
 </template>
 
 <script>
+import DatePicker from "../components/DatePicker";
 import MuscleGroup from "../components/MuscleGroup";
 import MuscleGroups from "../components/MuscleGroups";
 import AddMuscleGroupButton from "../components/AddMuscleGroupButton";
@@ -107,6 +114,7 @@ export default {
     Exercise,
     AddMuscleGroupButton,
     AddAnotherExerciseButton,
+    DatePicker,
   },
 };
 </script>

@@ -27,7 +27,7 @@ export default new Vuex.Store({
     activeExercises: [],
     allExercisesByMuscleGroup: [],
     activeExercisesByMuscleGroup: [],
-    activeDate: { date: "09-06-2020" },
+    activeDate: { date: "2020-09-06" },
     muscleGroups: [{ name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }],
     chestExercises: [{ muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" }],
     bicepsExercises: [{ muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" }],
@@ -135,8 +135,14 @@ export default new Vuex.Store({
     getCurrentDateString({ commit }) {
       let currentDateString = {}
       let d = new Date();
-      currentDateString = (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear()
+      currentDateString.date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
+      currentDateString.day = d.getDate();
+      currentDateString.month = d.getMonth() + 1;
+      currentDateString.year = d.getFullYear();
       commit("setCurrentDateString", currentDateString)
+    },
+    setActiveDate({ commit }, activeDate) {
+      commit("setCurrentDateString", activeDate)
     },
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
