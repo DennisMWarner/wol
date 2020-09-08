@@ -83,6 +83,7 @@ export default {
       // console.log("this.$auth.user: ");
       // console.log(this.$auth.user);
       this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
+      this.$store.dispatch("getCurrentDateString");
     },
     async logout() {
       this.$store.dispatch("resetBearer");

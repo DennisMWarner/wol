@@ -36,6 +36,10 @@ export default new Vuex.Store({
     shouldersExercises: [{ muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }],
   },
   mutations: {
+    setCurrentDateString(state, currentDateString) {
+      console.log("set date commit: ", currentDateString)
+      state.activeDate = currentDateString
+    },
     setActiveContext(state, activeContext) {
       state.activeContext = activeContext
     },
@@ -128,6 +132,12 @@ export default new Vuex.Store({
 
   },
   actions: {
+    getCurrentDateString({ commit }) {
+      let currentDateString = {}
+      let d = new Date();
+      currentDateString = (d.getMonth() + 1) + "-" + d.getDate() + "-" + d.getFullYear()
+      commit("setCurrentDateString", currentDateString)
+    },
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },

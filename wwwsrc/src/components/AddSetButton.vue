@@ -130,6 +130,7 @@ export default {
   computed: {},
   methods: {
     saveSetData() {
+      this.activeSet.date = this.$store.state.activeDate;
       this.activeSet.context = this.$store.state.activeContext.name;
       if (this.$store.state.activeSetsByExercise.length < 1) {
         this.activeSet.name = "Set 1";
