@@ -23,9 +23,9 @@
     <div class="modal" tabindex="-1" role="dialog" id="addSetDataModal">
       <div class="modal-dialog-centered" role="document">
         <div class="modal-content w-75 mx-auto text-center bg-transparent">
-          <div class="modal-body no-gutters">
+          <div class="modal-body border border-white rounded bg-secondary no-gutters">
             <form>
-              <div class="form-group border border-white rounded py-3 bg-secondary">
+              <div class="form-group">
                 <label
                   for="formGroupExampleInput"
                   class="w-75 bg-success border border-white text-white rounded"
@@ -41,7 +41,7 @@
                   required
                 />
               </div>
-              <div class="form-group border border-white rounded py-3 bg-secondary">
+              <div class="form-group">
                 <label
                   for="formGroupExampleInput"
                   class="w-75 bg-success border border-white text-white rounded"
@@ -57,22 +57,40 @@
                   required
                 />
               </div>
-              <div
-                v-if="this.$store.state.activeContext.name"
-                class="border border-white py-3 mb-5 rounded shadow bg-secondary"
-              >
+              <div v-if="this.$store.state.activeContext.name" class="py-1">
                 <button
-                  class="btn btn-success border border-white text-white rounded"
+                  class="btn btn-warning border w-100 border-white text-white rounded"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#add-cycle-modal"
+                >
+                  <h5 class="pt-1">Cycle: {{this.$store.state.activeCycle.name}}</h5>
+                </button>
+              </div>
+              <div v-else class="py-1">
+                <button
+                  class="btn btn-warning w-100 border border-white text-white rounded"
+                  type="button"
+                  data-toggle="modal"
+                  data-target="#add-cycle-modal"
+                >
+                  <h5 class="pt-1">Set Cycle</h5>
+                </button>
+              </div>
+
+              <div v-if="this.$store.state.activeContext.name" class="py-1 mb-5">
+                <button
+                  class="btn btn-warning w-100 border border-white text-white rounded"
                   type="button"
                   data-toggle="modal"
                   data-target="#add-context-modal"
                 >
-                  <h5 class="pt-1">{{this.$store.state.activeContext.name}}</h5>
+                  <h5 class="pt-1">Context: {{this.$store.state.activeContext.name}}</h5>
                 </button>
               </div>
-              <div v-else class="border border-white py-3 mb-5 rounded shadow bg-secondary">
+              <div v-else class="py-1 mb-5">
                 <button
-                  class="btn btn-success border border-white text-white rounded"
+                  class="btn btn-warning w-100 border border-white text-white rounded"
                   type="button"
                   data-toggle="modal"
                   data-target="#add-context-modal"
@@ -114,6 +132,49 @@
       </div>
     </div>
     <!-------------------------------------------------------------------------->
+    <!-----------------add cycle Modal------------------------------------->
+    <div class="modal" tabindex="-1" role="dialog" id="add-cycle-modal">
+      <div class="modal-dialog-centered" role="document">
+        <div class="modal-content bg-transparent">
+          <div class="modal-body mx-auto bg-dark border rounded no-gutters">
+            <div class="form-group text-center">
+              <label
+                for="formGroupExampleInput"
+                class="w-75 bg-success text-left border border-white text-white rounded"
+              >
+                <h5 class="pt-1 pl-2">Cycle:</h5>
+              </label>
+              <input
+                type="number"
+                class="form-control w-75 mx-auto text-center"
+                placeholder="Enter cycle number here...."
+                v-model.number="activeCycle.name"
+                required
+              />
+            </div>
+            <div>
+              <button
+                class="btn btn-success btn-block border border-white text-white rounded"
+                type="submit"
+                @click="setCycle()"
+              >
+                <h5 class="pt-1">Save Cycle</h5>
+              </button>
+            </div>
+            <div>
+              <button
+                class="btn btn-dark btn-block border border-white text-white rounded mt-3"
+                type="submit"
+                data-dismiss="modal"
+              >
+                <h6 class="pt-1">Cancel</h6>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!-------------------------------------------------------------------------->
   </div>
 </template>
 
@@ -125,6 +186,7 @@ export default {
   data() {
     return {
       activeSet: {},
+      activeCycle: {},
     };
   },
   computed: {},
@@ -134,6 +196,7 @@ export default {
         this.$store.state.activeDate.pastDate ||
         this.$store.state.activeDate.date;
       this.activeSet.context = this.$store.state.activeContext.name;
+      this.activeSet.cycle = this.$store.state.activeCycle.name;
       if (this.$store.state.activeSetsByExercise.length < 1) {
         this.activeSet.name = "Set 1";
       } else {
@@ -151,6 +214,9 @@ export default {
       }
 
       console.log("activeSet sent: ", this.activeSet);
+    },
+    setCycle() {
+      this.$store.commit("setActiveCycle", this.activeCycle);
     },
   },
   components: { ContextMenuOptions },

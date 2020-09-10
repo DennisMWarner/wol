@@ -2,12 +2,13 @@
   <div>
     <div class="row text-center text-white">
       <div
-        class="col-12"
-      >{{this.$store.state.activeDate.month}}-{{this.$store.state.activeDate.day}}-{{this.$store.state.activeDate.year}}</div>
+        class="col-6"
+      >active Date: {{this.$store.state.activeDate.month}}-{{this.$store.state.activeDate.day}}-{{this.$store.state.activeDate.year}}</div>
+      <div class="col-6">active Cycle: {{this.$store.state.activeCycle.name}}</div>
     </div>
-    <div class="row text-center text-white">
+    <!-- <div class="row text-center text-white">
       <div class="col-12">{{this.$store.state.activeDate.pastDate}}</div>
-    </div>
+    </div>-->
     <div v-if="this.$auth.userInfo.sub">
       <div
         v-if="this.$store.state.activeMuscleGroups.length>0"
@@ -64,7 +65,7 @@
         </div>
       </div>
     </div>
-    <date-picker />
+    <!-- <date-picker /> -->
   </div>
 </template>
 
@@ -97,7 +98,7 @@ export default {
       this.$store.dispatch("setBearer", this.$auth.bearer);
       // console.log("this.$auth.user: ");
       // console.log(this.$auth.user);
-      this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
+      // this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
     },
 
     logout() {

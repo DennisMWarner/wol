@@ -18,6 +18,7 @@ let api = Axios.create({
 export default new Vuex.Store({
   state: {
     activeSets: [],
+    activeCycle: {},
     activeContexts: [{ name: "5-3-1" }, { name: "standard" }],
     activeContext: {},
     activeSetsByExercise: [],
@@ -36,12 +37,15 @@ export default new Vuex.Store({
     shouldersExercises: [{ muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }],
   },
   mutations: {
-    setCurrentDateString(state, currentDateString) {
-      console.log("set date commit: ", currentDateString)
-      state.activeDate = currentDateString
+    setActiveDate(state, activeDate) {
+      console.log("set date commit: ", activeDate)
+      state.activeDate = activeDate
     },
     setActiveContext(state, activeContext) {
       state.activeContext = activeContext
+    },
+    setActiveCycle(state, activeCycle) {
+      state.activeCycle = activeCycle
     },
     setActiveMuscleGroup(state, activeMuscleGroup) {
       state.activeMuscleGroup = activeMuscleGroup;
@@ -139,11 +143,21 @@ export default new Vuex.Store({
       currentDateString.day = d.getDate();
       currentDateString.month = d.getMonth() + 1;
       currentDateString.year = d.getFullYear();
-      commit("setCurrentDateString", currentDateString)
+      commit("setActiveDate", currentDateString)
     },
-    setActiveDate({ commit }, activeDate) {
-      commit("setCurrentDateString", activeDate)
+    setPastDate({ commit }, pastDate) {
+      console.log("past date sent: ", pastDate)
+      let activeDate = {};
+      let dateString = pastDate.split("-");
+
+      activeDate.pastDate = dateString[2] + "-" + dateString[0] + "-" + dateString[1]
+      activeDate.day = dateString[1]
+      activeDate.month = dateString[0]
+      activeDate.year = dateString[2]
+      console.log("past date string sent: ", activeDate)
+      commit("setActiveDate", activeDate)
     },
+
     setBearer({ }, bearer) {
       api.defaults.headers.authorization = bearer;
     },
@@ -204,12 +218,24 @@ export default new Vuex.Store({
       try {
         let res = await api.get("sets", userId)
         commit("setActiveSets", res.data)
-        // dispatch("setActiveMuscleGroups", res.data)
+        dispatch("setActiveDateFromDB", res.data[0].date)
+        // console.log("date string sent: ", res.data[0].date)
       } catch (error) {
         console.error(error)
 
       }
 
+    },
+    setActiveDateFromDB({ commit }, activeDateFromDB) {
+      let activeDate = {};
+      let dateString = activeDateFromDB.split(" ")[0].split("/");
+
+      activeDate.pastDate = dateString[2] + "-" + dateString[0] + "-" + dateString[1]
+      activeDate.day = dateString[1]
+      activeDate.month = dateString[0]
+      activeDate.year = dateString[2]
+      console.log("date string sent: ", activeDate)
+      commit("setActiveDate", activeDate)
     },
     async clearDB({ dispatch }, userId) {
       await api.delete("sets/" + userId);

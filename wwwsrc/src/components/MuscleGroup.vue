@@ -78,7 +78,7 @@
             <button
               class="btn btn-success btn-block border border-white text-white rounded"
               type="button"
-              @click="setActiveDate()"
+              @click="setPastDate()"
               data-dismiss="modal"
             >
               <h5 class="pt-1">Save</h5>
@@ -135,9 +135,9 @@ export default {
         );
       }
     },
-    setActiveDate() {
-      this.$store.dispatch("setActiveDate", this.activeDate);
-      console.log("this.activeDate sent: ", this.activeDate);
+    setPastDate() {
+      this.$store.dispatch("setPastDate", this.activeDate.pastDate);
+      console.log("this.activeDate sent: ", this.activeDate.pastDate);
       this.activeDate = {};
     },
   },
