@@ -57,7 +57,7 @@
                   required
                 />
               </div>
-              <div v-if="this.$store.state.activeContext.name" class="py-1">
+              <div v-if="this.$store.state.activeCycle.name" class="py-1">
                 <button
                   class="btn btn-warning border w-100 border-white text-white rounded"
                   type="button"
@@ -88,6 +88,7 @@
                   <h5 class="pt-1">Context: {{this.$store.state.activeContext.name}}</h5>
                 </button>
               </div>
+
               <div v-else class="py-1 mb-5">
                 <button
                   class="btn btn-warning w-100 border border-white text-white rounded"
@@ -152,11 +153,13 @@
                 required
               />
             </div>
+
             <div>
               <button
                 class="btn btn-success btn-block border border-white text-white rounded"
-                type="submit"
+                type="button"
                 @click="setCycle()"
+                data-dismiss="modal"
               >
                 <h5 class="pt-1">Save Cycle</h5>
               </button>

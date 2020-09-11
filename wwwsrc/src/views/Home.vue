@@ -2,9 +2,9 @@
   <div>
     <div class="row text-center text-white">
       <div
-        class="col-6"
+        class="col-sm-4"
       >active Date: {{this.$store.state.activeDate.month}}-{{this.$store.state.activeDate.day}}-{{this.$store.state.activeDate.year}}</div>
-      <div class="col-6">active Cycle: {{this.$store.state.activeCycle.name}}</div>
+      <div class="col-sm-4">active Cycle: {{this.$store.state.activeCycle.name}}</div>
     </div>
     <!-- <div class="row text-center text-white">
       <div class="col-12">{{this.$store.state.activeDate.pastDate}}</div>
@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <!-- <date-picker /> -->
+    <date-picker />
   </div>
 </template>
 

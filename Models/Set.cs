@@ -14,6 +14,8 @@ namespace Wol.Models
     public string Date { get; set; }
     public string Context { get; set; }
     public int Cycle { get; set; }
+    public int nextCycle { get; set; }
+    public int numOfCycles { get; set; }
   }
   // public class VaultKeepViewModel : Keep
   // {

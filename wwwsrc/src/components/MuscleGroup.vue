@@ -7,6 +7,7 @@
     >
       <h4>{{muscleGroupData.name}}</h4>
     </div>
+
     <div
       v-else-if="this.$store.state.activeSets.length<1 && !this.$store.state.activeDate.pastDate"
       class="px-1"
