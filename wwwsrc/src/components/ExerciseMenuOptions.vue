@@ -24,8 +24,6 @@
                 type="text"
                 class="form-control"
                 placeholder="New exercise name"
-                aria-label="Recipient's username"
-                aria-describedby="button-addon2"
                 v-model="newExercise.name"
                 required
               />
@@ -33,7 +31,6 @@
               <button
                 class="btn btn-outline-light bg-secondary text-white w-75 mt-3"
                 type="submit"
-                id="button-addon2"
                 @click="addNewExercise()"
               >Save</button>
             </div>

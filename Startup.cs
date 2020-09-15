@@ -63,6 +63,8 @@ namespace Wol
       //NOTE REGISTER SERVICES AND REPOSITORIES
       services.AddTransient<SetsService>();
       services.AddTransient<SetsRepository>();
+      services.AddTransient<CyclesService>();
+      services.AddTransient<CyclesRepository>();
     }
 
     private IDbConnection CreateDbConnection()

@@ -11,7 +11,7 @@
               <div class="col-8">
                 <p
                   class="text-dark text-right"
-                >Plan: {{activeSetData.weight}} X {{activeSetData.repCount}}</p>
+                >Plan: {{activeSetData.plannedWeight}} X {{activeSetData.plannedRepCount}}</p>
               </div>
             </div>
           </div>
@@ -22,10 +22,13 @@
               <div class="col-6 text-left text-white">
                 <p class="text-white">{{activeSetData.context}}</p>
               </div>
-              <div class="col-6">
+              <div v-if="activeSetData.actualWeight && activeSetData.actualReps" class="col-6">
                 <p
                   class="text-white text-right"
                 >Actual: {{activeSetData.weight}} X {{activeSetData.repCount}}</p>
+              </div>
+              <div v-else class="col-6">
+                <p class="text-white text-right">Actual: - X -</p>
               </div>
             </div>
           </div>

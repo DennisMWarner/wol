@@ -24,8 +24,8 @@ namespace Wol.Repositories
     internal Set Create(Set newSet)
     {
       string sql = @"
-            INSERT INTO sets(exerciseName,  userId, muscleGroup, repCount, weight, name, context, date, cycle)
-            VALUES(@ExerciseName, @UserId, @MuscleGroup, @RepCount, @Weight, @Name, @Context, @Date, @Cycle); 
+            INSERT INTO sets(exerciseName,  userId, muscleGroup, plannedRepCount, plannedWeight,actualRepCount, actualWeight, name, context, date, cycle)
+            VALUES(@ExerciseName, @UserId, @MuscleGroup, @PlannedRepCount, @PlannedWeight, @ActualRepCount, @ActualWeight, @Name, @Context, @Date, @Cycle); 
             SELECT LAST_INSERT_ID()
         ";
       newSet.Id = _db.ExecuteScalar<int>(sql, newSet);

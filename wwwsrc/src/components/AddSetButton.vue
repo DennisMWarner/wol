@@ -37,7 +37,7 @@
                   class="form-control w-75 mx-auto text-center border border-success"
                   id="setWeight"
                   placeholder="Enter weight here..."
-                  v-model.number="activeSet.weight"
+                  v-model.number="activeSet.plannedWeight"
                   required
                 />
               </div>
@@ -53,7 +53,7 @@
                   class="form-control w-75 mx-auto text-center"
                   id="setReps"
                   placeholder="Enter reps here..."
-                  v-model.number="activeSet.repCount"
+                  v-model.number="activeSet.plannedRepCount"
                   required
                 />
               </div>
@@ -102,8 +102,9 @@
               <div>
                 <button
                   class="btn btn-success btn-block border border-white text-white rounded"
-                  type="submit"
+                  type="button"
                   @click="saveSetData()"
+                  data-dismiss="modal"
                 >
                   <h5 class="pt-1">Save This Set</h5>
                 </button>
@@ -208,7 +209,7 @@ export default {
           (this.$store.state.activeSetsByExercise.length + 1).toString();
       }
       this.activeSet.exerciseName = this.$store.state.activeExercise.name;
-      if (this.activeSet.weight && this.activeSet.repCount) {
+      if (this.activeSet.plannedWeight && this.activeSet.plannedRepCount) {
         this.$store.dispatch("saveSetData", this.activeSet);
         $("#addSetDataModal").modal("hide");
         console.log("activeSet sent: ", this.activeSet);

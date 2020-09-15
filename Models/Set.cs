@@ -8,9 +8,10 @@ namespace Wol.Models
     public string ExerciseName { get; set; }
     public string MuscleGroup { get; set; }
     public string Img { get; set; }
-    public float Weight { get; set; }
-    public int RepCount { get; set; }
-
+    public float ActualWeight { get; set; }
+    public int ActualRepCount { get; set; }
+    public float PlannedWeight { get; set; }
+    public int PlannedRepCount { get; set; }
     public string Date { get; set; }
     public string Context { get; set; }
     public int Cycle { get; set; }
