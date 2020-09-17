@@ -1,6 +1,6 @@
 <template>
   <div class="singleSet col-12 border-0">
-    <div class="row">
+    <div class="row" data-toggle="modal" data-target="#edit-set-modal" @click="setActiveSet()">
       <div class="mt-2 col-12 no-gutters">
         <div class="row">
           <div class="col-12 bg-white rounded-top">
@@ -35,6 +35,64 @@
         </div>
       </div>
     </div>
+    <!------------------------------edit-set-modal----------------------------------------->
+    <div class="modal" tabindex="-1" role="dialog" id="edit-set-modal">
+      <div class="modal-dialog-centered" role="document">
+        <div class="modal-content w-75 mx-auto text-center bg-transparent">
+          <div class="modal-body border border-white rounded bg-secondary no-gutters">
+            <form>
+              <div class="form-group">
+                <label
+                  for="formGroupExampleInput"
+                  class="w-75 bg-success border border-white text-white rounded"
+                >
+                  <h5 class="pt-1 text-left pl-2">Actual Weight:</h5>
+                </label>
+                <input
+                  type="number"
+                  class="form-control w-75 mx-auto text-center border border-success"
+                  :value="this.$store.state.activeSet.plannedWeight"
+                />
+              </div>
+              <div class="form-group">
+                <label
+                  for="formGroupExampleInput"
+                  class="w-75 bg-success border border-white text-white rounded"
+                >
+                  <h5 class="pt-1 text-left pl-2">Actual Reps:</h5>
+                </label>
+                <input
+                  type="number"
+                  class="form-control w-75 mx-auto text-center"
+                  placeholder="Enter reps here..."
+                />
+              </div>
+
+              <div>
+                <button
+                  class="btn btn-success btn-block border border-white text-white rounded"
+                  type="button"
+                  @click="enterActualSetData()"
+                  data-dismiss="modal"
+                >
+                  <h5 class="pt-1">Save This Set</h5>
+                </button>
+              </div>
+              <div>
+                <button
+                  class="btn btn-dark btn-block border border-white text-white rounded mt-3"
+                  type="submit"
+                  data-dismiss="modal"
+                >
+                  <h6 class="pt-1">Cancel</h6>
+                </button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+    <!------------------------------------------------------------------------------------>
   </div>
 </template>
 
@@ -47,7 +105,12 @@ export default {
     return {};
   },
   computed: {},
-  methods: {},
+  methods: {
+    setActiveSet() {
+      this.$store.state.activeSet = this.activeSetData;
+    },
+    enterActualSetData() {},
+  },
   components: {},
 };
 </script>

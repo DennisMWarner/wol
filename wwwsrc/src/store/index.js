@@ -17,6 +17,7 @@ let api = Axios.create({
 
 export default new Vuex.Store({
   state: {
+    activeSet: {},
     activeSets: [],
     activeCycle: {},
     activeContexts: [{ name: "5-3-1" }, { name: "standard" }],
@@ -111,20 +112,21 @@ export default new Vuex.Store({
           activeMuscleGroup.name = activeSet.muscleGroup
           state.activeMuscleGroups.push(
             activeMuscleGroup
-          );
-          if (
-            state.activeExercises.findIndex(
-              (ae) => ae.name == activeSet.exerciseName
-            ) < 0
-          ) {
-            console.log("activeSet.exerciseName: ", activeSet.exerciseName, activeExercise)
-            activeExercise.name = activeSet.exerciseName
-            activeExercise.muscleGroup = activeSet.muscleGroup
-            state.activeExercises.push(
-              activeExercise
-            );
-          };
+          )
         };
+        if (
+          state.activeExercises.findIndex(
+            (ae) => ae.name == activeSet.exerciseName
+          ) < 0
+        ) {
+          console.log("activeSet.exerciseName: ", activeSet.exerciseName, activeExercise)
+          activeExercise.name = activeSet.exerciseName
+          activeExercise.muscleGroup = activeSet.muscleGroup
+          state.activeExercises.push(
+            activeExercise
+          );
+        };
+        ;
 
       }
       )
@@ -218,6 +220,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("sets", userId)
         commit("setActiveSets", res.data)
+        console.log("sets from DB: ", res.data)
         dispatch("setActiveDateFromDB", res.data[0].date)
         // console.log("date string sent: ", res.data[0].date)
       } catch (error) {
