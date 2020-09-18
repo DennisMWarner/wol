@@ -65,7 +65,7 @@
         </div>
       </div>
     </div>
-    <date-picker />
+    <!-- <date-picker /> -->
   </div>
 </template>
 

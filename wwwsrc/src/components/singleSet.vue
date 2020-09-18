@@ -19,16 +19,16 @@
         <div class="row">
           <div class="col-12 bg-success text-right text-white rounded-bottom border border-white">
             <div class="row">
-              <div class="col-6 text-left text-white">
+              <div class="col-4 text-left text-white">
                 <p class="text-white">{{activeSetData.context}}</p>
               </div>
-              <div v-if="activeSetData.actualWeight && activeSetData.actualReps" class="col-6">
+              <div v-if="activeSetData.actualWeight && activeSetData.actualRepCount" class="col-6">
                 <p
                   class="text-white text-right"
-                >Actual: {{activeSetData.weight}} X {{activeSetData.repCount}}</p>
+                >Actual: {{activeSetData.actualWeight}} X {{activeSetData.actualRepCount}}</p>
               </div>
-              <div v-else class="col-6">
-                <p class="text-white text-right">Actual: - X -</p>
+              <div v-else class="col-8">
+                <p class="text-white text-right">Actual: Click to enter</p>
               </div>
             </div>
           </div>
@@ -51,7 +51,7 @@
                 <input
                   type="number"
                   class="form-control w-75 mx-auto text-center border border-success"
-                  :value="this.$store.state.activeSet.plannedWeight"
+                  v-model.number="activeSetData.actualWeight"
                 />
               </div>
               <div class="form-group">
@@ -65,6 +65,7 @@
                   type="number"
                   class="form-control w-75 mx-auto text-center"
                   placeholder="Enter reps here..."
+                  v-model.number="activeSetData.actualRepCount"
                 />
               </div>
 
@@ -109,7 +110,10 @@ export default {
     setActiveSet() {
       this.$store.state.activeSet = this.activeSetData;
     },
-    enterActualSetData() {},
+    enterActualSetData() {
+      console.log("enterActualSetData: ", this.activeSetData);
+      this.$store.dispatch("enterActualSetData", this.activeSetData);
+    },
   },
   components: {},
 };

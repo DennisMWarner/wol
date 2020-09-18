@@ -32,6 +32,20 @@ namespace Wol.Controllers
         return BadRequest(e.Message);
       };
     }
+    [HttpGet("next")]
+    public ActionResult<IEnumerable<Set>> GetNext()
+    {
+      try
+      {
+        var userClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        var userId = userClaim.Value;
+        return Ok(_ss.GetNext(userId));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      };
+    }
 
     [HttpPost]
     [Authorize]
@@ -42,6 +56,23 @@ namespace Wol.Controllers
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
         newSet.UserId = userId;
         return Ok(_ss.Create(newSet));
+      }
+      catch (Exception e)
+      {
+        return BadRequest(e.Message);
+      }
+    }
+
+    [HttpPut("{id}")]
+    [Authorize]
+
+    public ActionResult<Set> EditSet([FromBody] Set setToUpdate)
+    {
+      try
+      {
+        var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
+        setToUpdate.UserId = userId.Value;
+        return Ok(_ss.EditSet(setToUpdate));
       }
       catch (Exception e)
       {

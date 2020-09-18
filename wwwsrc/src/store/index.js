@@ -97,7 +97,9 @@ export default new Vuex.Store({
     },
 
     setActiveSet(state, activeSet) {
-      state.activeSets.push(activeSet)
+      console.log("setActiveSet called: ", activeSet)
+      if (state.activeSets.findIndex(as => as.id == activeSet.id) < 0) { state.activeSets.push(activeSet) }
+
     },
     setActiveSets(state, activeSets) {
       state.activeSets = activeSets
@@ -207,6 +209,21 @@ export default new Vuex.Store({
 
       }
     },
+    async enterActualSetData({ dispatch, commit }, editedSet) {
+      // await commit("setActiveSet", activeSet);
+      // dispatch("setActiveSetsByExercise", this.state.activeExercise)
+
+      try {
+        let res = await api.put("sets/" + editedSet.id, editedSet)
+        console.log("post response: ", res.data)
+        commit("setActiveSet", res.data)
+        dispatch("setActiveSetsByExercise", this.state.activeExercise)
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+
     addNewExercise({ dispatch, commit }, newExercise) {
       commit("setActiveExercises", newExercise);
       dispatch("setActiveExercise", newExercise)
@@ -216,9 +233,9 @@ export default new Vuex.Store({
       dispatch("setActiveExercise", activeExercise)
       commit("setActiveSetsByExercise", activeExercise)
     },
-    async getSetsByUserId({ dispatch, commit }, userId) {
+    async getNextSetsByUserId({ dispatch, commit }, userId) {
       try {
-        let res = await api.get("sets", userId)
+        let res = await api.get("sets/next", userId)
         commit("setActiveSets", res.data)
         console.log("sets from DB: ", res.data)
         dispatch("setActiveDateFromDB", res.data[0].date)
