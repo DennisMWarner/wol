@@ -5,6 +5,11 @@
       data-dismiss="modal"
       @click="setActiveExercise()"
     >{{this.exerciseMenuOptionButtonData.name}}</button>
+    <!-- <button
+      class="btn btn-danger border rounded border-white w-75 mb-3"
+      data-dismiss="modal"
+      @click="deleteExerciseById()"
+    >Delort it</button>-->
   </div>
 </template>
 
@@ -33,6 +38,12 @@ export default {
           this.exerciseMenuOptionButtonData
         );
       }
+    },
+    deleteExerciseById() {
+      this.$store.dispatch(
+        "deleteExerciseById",
+        this.exerciseMenuOptionButtonData.id
+      );
     },
   },
   components: {},

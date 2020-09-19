@@ -13,19 +13,20 @@ namespace Wol.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class CyclesController : ControllerBase
+  public class ExercisesController : ControllerBase
   {
-    private readonly CyclesService _cs;
-    public CyclesController(CyclesService cs)
+    private readonly ExercisesService _es;
+    public ExercisesController(ExercisesService es)
     {
-      _cs = cs;
+      _es = es;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Cycle>> Get()
+    public ActionResult<IEnumerable<Exercise>> Get()
     {
+      var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
       try
       {
-        return Ok(_cs.Get());
+        return Ok(_es.Get(userId));
       }
       catch (Exception e)
       {
@@ -35,13 +36,13 @@ namespace Wol.Controllers
 
     [HttpPost]
     [Authorize]
-    public ActionResult<Cycle> Post([FromBody] Cycle newCycle)
+    public ActionResult<Exercise> Post([FromBody] Exercise newExercise)
     {
       try
       {
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        newCycle.UserId = userId;
-        return Ok(_cs.Create(newCycle));
+        newExercise.UserId = userId;
+        return Ok(_es.Create(newExercise));
       }
       catch (Exception e)
       {
@@ -56,7 +57,7 @@ namespace Wol.Controllers
       {
         var userClaim = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier);
         var userId = userClaim.Value;
-        return Ok(_cs.Delete(userId));
+        return Ok(_es.Delete(userId, id));
       }
       catch (System.Exception error)
       {

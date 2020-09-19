@@ -57,7 +57,7 @@
                   required
                 />
               </div>
-              <div v-if="this.$store.state.activeCycle.name" class="py-1">
+              <!-- <div v-if="this.$store.state.activeCycle.name" class="py-1">
                 <button
                   class="btn btn-warning border w-100 border-white text-white rounded"
                   type="button"
@@ -76,7 +76,7 @@
                 >
                   <h5 class="pt-1">Set Cycle</h5>
                 </button>
-              </div>
+              </div>-->
 
               <div v-if="this.$store.state.activeContext.name" class="py-1 mb-5">
                 <button

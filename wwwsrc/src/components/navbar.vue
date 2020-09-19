@@ -84,6 +84,8 @@ export default {
       // console.log(this.$auth.user);
       this.$store.dispatch("getNextSetsByUserId", this.$auth.user.sub);
       this.$store.dispatch("getCurrentDateString");
+      this.$store.dispatch("getMuscleGroups");
+      this.$store.dispatch("getExercises");
     },
     async logout() {
       this.$store.dispatch("resetBearer");

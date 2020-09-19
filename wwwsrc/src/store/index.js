@@ -30,12 +30,16 @@ export default new Vuex.Store({
     allExercisesByMuscleGroup: [],
     activeExercisesByMuscleGroup: [],
     activeDate: { date: "2020-09-06" },
-    muscleGroups: [{ name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }],
-    chestExercises: [{ muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" }],
-    bicepsExercises: [{ muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" }],
-    tricepsExercises: [{ muscleGroup: "Triceps", name: "Dual Handle, Reverse-Grip Pulldown" }, { muscleGroup: "Triceps", name: "Rope Pulldown" }, { muscleGroup: "Triceps", name: "Single Bar Cable Pushdown" }],
-    backExercises: [{ muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { muscleGroup: "Back", name: " Overhead Single Bar Pulldown" }],
-    shouldersExercises: [{ muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }],
+    muscleGroups: [
+      // { name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }, { name: "Quadriceps" }, { name: "Hamstrings" }, { name: "Calves" }, { name: "Abdomianls" }
+    ],
+    exercises: [
+      //   { muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" },
+      // { muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" },
+      // { muscleGroup: "Triceps", name: "Dual Handle, Reverse-Grip Pulldown" }, { muscleGroup: "Triceps", name: "Rope Pulldown" }, { muscleGroup: "Triceps", name: "Single Bar Cable Pushdown" },
+      // { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { muscleGroup: "Back", name: " Overhead Single Bar Pulldown" },
+      // { muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }
+    ],
   },
   mutations: {
     setActiveDate(state, activeDate) {
@@ -44,6 +48,12 @@ export default new Vuex.Store({
     },
     setActiveContext(state, activeContext) {
       state.activeContext = activeContext
+    },
+    setMuscleGroups(state, muscleGroups) {
+      state.muscleGroups = muscleGroups
+    },
+    setExercises(state, exercises) {
+      state.exercises = exercises
     },
     setActiveCycle(state, activeCycle) {
       state.activeCycle = activeCycle
@@ -85,10 +95,8 @@ export default new Vuex.Store({
     },
 
     setAllExercisesByMuscleGroup(state, activeMuscleGroup) {
-      let exercises = activeMuscleGroup.name.toLowerCase() + "Exercises"
-      // console.log("exercises by MG: ", exercises)
-      // console.log("found in state: ", state[exercises])
-      state.allExercisesByMuscleGroup = state[exercises]
+
+      state.allExercisesByMuscleGroup = state.exercises.filter(e => e.muscleGroup == activeMuscleGroup.name)
     },
     setActiveExercisesByMuscleGroup(state, activeMuscleGroup) {
       state.activeExercisesByMuscleGroup = state.activeExercises.filter(
@@ -215,7 +223,7 @@ export default new Vuex.Store({
 
       try {
         let res = await api.put("sets/" + editedSet.id, editedSet)
-        console.log("post response: ", res.data)
+        console.log("put response: ", res.data)
         commit("setActiveSet", res.data)
         dispatch("setActiveSetsByExercise", this.state.activeExercise)
       } catch (error) {
@@ -260,6 +268,54 @@ export default new Vuex.Store({
     async clearDB({ dispatch }, userId) {
       await api.delete("sets/" + userId);
       dispatch("getSetsByUserId", userId)
-    }
+    },
+    getSetContexts({ dispatch, commit }) { },
+    getSetContextsByUserId({ dispatch, commit }) { },
+    addSetContext({ dispatch, commit }, newContext) { },
+    editContext({ dispatch, commit }, contextToEdit) { },
+    deleteContext({ dispatch, commit }, contextId) { },
+    async getMuscleGroups({ dispatch, commit }) {
+      try {
+        let res = await api.get("musclegroups")
+        commit("setMuscleGroups", res.data)
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+
+    async addMuscleGroup({ dispatch, commit }, newMuscleGroup) {
+      try {
+        let res = await api.post("musclegroups", newMuscleGroup)
+        console.log("post response: ", res.data)
+
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+    editMuscleGroup({ dispatch, commit }, MuscleGroupToEdit) { },
+    deleteMuscleGroup({ dispatch, commit }, MuscleGroupId) { },
+    async getExercises({ dispatch, commit }) {
+      try {
+        let res = await api.get("exercises")
+        commit("setExercises", res.data)
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+    editExercise({ dispatch, commit }, ExerciseToEdit) { },
+
+    async deleteExerciseById({ dispatch, commit }, exerciseId) {
+      await api.delete("exercises/" + exerciseId);
+      dispatch("getExercises")
+    },
+    // addAllToDB({ dispatch, commit }, userId) {
+    //   this.state.muscleGroups.forEach(e => api.post("muscleGroups", e))
+
+    // }
+
+
   }
 });

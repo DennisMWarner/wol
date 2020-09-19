@@ -23,6 +23,14 @@
       </div>
       <add-muscle-group-button v-if="this.$store.state.activeMuscleGroup.name" />
       <add-another-exercise-button v-if="this.$store.state.activeExercisesByMuscleGroup.length>0" />
+      <!-- <div class="col-12 text-center text-white pt-4 mt-2">
+        <button
+          class="btn btn-success text-white pt-3 border rounded border-white"
+          @click="addAllToDB()"
+        >
+          <h5>Add exercises and musclegroups to DB</h5>
+        </button>
+      </div>-->
       <!-------------------clear DB button and modal------------------------>
       <div v-if="this.$store.state.activeMuscleGroups.length>0" class="row text-center mt-4">
         <div class="col-12">
@@ -108,6 +116,9 @@ export default {
     },
     clearDB() {
       this.$store.dispatch("clearDB", this.$auth.user.sub);
+    },
+    addAllToDB() {
+      this.$store.dispatch("addAllToDB", this.$auth.user.sub);
     },
   },
   components: {

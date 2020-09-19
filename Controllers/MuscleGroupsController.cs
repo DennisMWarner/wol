@@ -13,19 +13,20 @@ namespace Wol.Controllers
 {
   [ApiController]
   [Route("api/[controller]")]
-  public class KeepsController : ControllerBase
+  public class MuscleGroupsController : ControllerBase
   {
-    private readonly KeepsService _ks;
-    public KeepsController(KeepsService ks)
+    private readonly MuscleGroupsService _mgs;
+    public MuscleGroupsController(MuscleGroupsService mgs)
     {
-      _ks = ks;
+      _mgs = mgs;
     }
     [HttpGet]
-    public ActionResult<IEnumerable<Keep>> Get()
+    public ActionResult<IEnumerable<MuscleGroup>> Get()
     {
+      var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
       try
       {
-        return Ok(_ks.Get());
+        return Ok(_mgs.Get(userId));
       }
       catch (Exception e)
       {
@@ -35,13 +36,13 @@ namespace Wol.Controllers
 
     [HttpPost]
     [Authorize]
-    public ActionResult<Keep> Post([FromBody] Keep newKeep)
+    public ActionResult<MuscleGroup> Post([FromBody] MuscleGroup newMuscleGroup)
     {
       try
       {
         var userId = HttpContext.User.FindFirst(ClaimTypes.NameIdentifier).Value;
-        newKeep.UserId = userId;
-        return Ok(_ks.Create(newKeep));
+        newMuscleGroup.UserId = userId;
+        return Ok(_mgs.Create(newMuscleGroup));
       }
       catch (Exception e)
       {
