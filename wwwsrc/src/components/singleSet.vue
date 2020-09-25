@@ -112,7 +112,8 @@ export default {
     },
     enterActualSetData() {
       console.log("enterActualSetData: ", this.activeSetData);
-      this.$store.dispatch("enterActualSetData", this.activeSetData);
+      // this.$store.dispatch("enterActualSetData", this.activeSetData);
+      this.$store.dispatch("planNextSet", this.activeSetData);
     },
   },
   components: {},

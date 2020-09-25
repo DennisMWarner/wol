@@ -31,14 +31,14 @@ export default new Vuex.Store({
     activeExercisesByMuscleGroup: [],
     activeDate: { date: "2020-09-06" },
     muscleGroups: [
-      // { name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }, { name: "Quadriceps" }, { name: "Hamstrings" }, { name: "Calves" }, { name: "Abdomianls" }
+      { name: "Chest" }, { name: "Triceps" }, { name: "Biceps" }, { name: "Back" }, { name: "Shoulders" }, { name: "Quadriceps" }, { name: "Hamstrings" }, { name: "Calves" }, { name: "Abdomianls" }
     ],
     exercises: [
-      //   { muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" },
-      // { muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" },
-      // { muscleGroup: "Triceps", name: "Dual Handle, Reverse-Grip Pulldown" }, { muscleGroup: "Triceps", name: "Rope Pulldown" }, { muscleGroup: "Triceps", name: "Single Bar Cable Pushdown" },
-      // { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { muscleGroup: "Back", name: " Overhead Single Bar Pulldown" },
-      // { muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }
+      { muscleGroup: "Chest", name: "Bench Press" }, { muscleGroup: "Chest", name: "Dual Handle Incline" }, { muscleGroup: "Chest", name: "Dual Handle Decline" },
+      { muscleGroup: "Biceps", name: "Free-Weight Curl Bar" }, { muscleGroup: "Biceps", name: "Dual Handle, Single Cable Curl" }, { muscleGroup: "Biceps", name: "Free-Weight Seated Dumbbell Curl" }, { muscleGroup: "Biceps", name: "Rope Hammer Curl" }, { muscleGroup: "Biceps", name: "Dual Handle, Dual Cable Curl" },
+      { muscleGroup: "Triceps", name: "Dual Handle, Reverse-Grip Pulldown" }, { muscleGroup: "Triceps", name: "Rope Pulldown" }, { muscleGroup: "Triceps", name: "Single Bar Cable Pushdown" },
+      { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from TOP notch position)" }, { muscleGroup: "Back", name: "Dual Handle, Dual Cable Pull (from BOTTOM notch position)" }, { muscleGroup: "Back", name: " Overhead Single Bar Pulldown" },
+      { muscleGroup: "Shoulders", name: "Arnold Press" }, { muscleGroup: "Shoulders", name: "Dual Handle Lateral Crossover" }, { muscleGroup: "Shoulders", name: "Barbell Overhead Press" }
     ],
   },
   mutations: {
@@ -287,7 +287,8 @@ export default new Vuex.Store({
     async addMuscleGroup({ dispatch, commit }, newMuscleGroup) {
       try {
         let res = await api.post("musclegroups", newMuscleGroup)
-        console.log("post response: ", res.data)
+        dispatch("getMuscleGroups")
+        dispatch("setActiveMuscleGroups")
 
       } catch (error) {
         console.error(error)
@@ -311,6 +312,9 @@ export default new Vuex.Store({
       await api.delete("exercises/" + exerciseId);
       dispatch("getExercises")
     },
+    planNextSet({ dispatch, commit }, lastSet) {
+      console.log("planNExtSet called... set to plan: ", lastSet)
+    }
     // addAllToDB({ dispatch, commit }, userId) {
     //   this.state.muscleGroups.forEach(e => api.post("muscleGroups", e))
 
