@@ -20,7 +20,9 @@ export default new Vuex.Store({
     activeSet: {},
     activeSets: [],
     activeCycle: {},
-    activeContexts: [{ name: "5-3-1" }, { name: "standard" }],
+    activeIntensityLevel: {},
+    activeIntensityLevels: [{ intensityLevel: 5 }, { intensityLevel: 6 }, { intensityLevel: 7 }, { intensityLevel: 8 }, { intensityLevel: 9 }, { intensityLevel: 10 },],
+    activeContexts: [],
     activeContext: {},
     activeSetsByExercise: [],
     activeMuscleGroup: {},
@@ -47,13 +49,21 @@ export default new Vuex.Store({
       state.activeDate = activeDate
     },
     setActiveContext(state, activeContext) {
+      console.log("setActiveContextLevel committed: ", activeContext)
       state.activeContext = activeContext
     },
     setMuscleGroups(state, muscleGroups) {
       state.muscleGroups = muscleGroups
     },
+    setActiveIntensityLevel(state, activeIntensityLevel) {
+      console.log("setActiveIntensityLevel committed: ", activeIntensityLevel)
+      state.activeIntensityLevel = activeIntensityLevel
+    },
     setExercises(state, exercises) {
       state.exercises = exercises
+    },
+    setActiveContexts(state, activeContexts) {
+      state.activeContexts = activeContexts
     },
     setActiveCycle(state, activeCycle) {
       state.activeCycle = activeCycle
@@ -107,7 +117,7 @@ export default new Vuex.Store({
     setActiveSet(state, activeSet) {
       console.log("setActiveSet called: ", activeSet)
       if (state.activeSets.findIndex(as => as.id == activeSet.id) < 0) { state.activeSets.push(activeSet) }
-
+      state.activeSet = activeSet;
     },
     setActiveSets(state, activeSets) {
       state.activeSets = activeSets
@@ -270,7 +280,10 @@ export default new Vuex.Store({
       dispatch("getSetsByUserId", userId)
     },
     getSetContexts({ dispatch, commit }) { },
-    getSetContextsByUserId({ dispatch, commit }) { },
+    async getUserContexts({ dispatch, commit }, userId) {
+      let res = await api.get("contexts/" + userId);
+      commit("setActiveContexts", res.data)
+    },
     addSetContext({ dispatch, commit }, newContext) { },
     editContext({ dispatch, commit }, contextToEdit) { },
     deleteContext({ dispatch, commit }, contextId) { },
@@ -312,14 +325,43 @@ export default new Vuex.Store({
       await api.delete("exercises/" + exerciseId);
       dispatch("getExercises")
     },
-    planNextSet({ dispatch, commit }, lastSet) {
+    async planNextSet({ dispatch, commit }, lastSet) {
       console.log("planNExtSet called... set to plan: ", lastSet)
-    }
+      let plannedSet = { ...lastSet };
+      plannedSet.plannedWeight = lastSet.actualWeight * 1.1;
+      plannedSet.actualWeight = 0;
+      plannedSet.actualRepCount = 0;
+      let parsedDate = lastSet.date.split(" ")[0].split("/");
+      plannedSet.date = parsedDate[2] + "-" + parsedDate[0] + "-" + parsedDate[1]
+      console.log("planned set/lastSet: ", plannedSet, lastSet)
+      await api.post("sets", plannedSet)
+
+      dispatch("enterActualSetData", lastSet)
+
+
+    },
     // addAllToDB({ dispatch, commit }, userId) {
     //   this.state.muscleGroups.forEach(e => api.post("muscleGroups", e))
 
     // }
 
+    async addNewContext({ dispatch, commit }, newContext) {
+      try {
+        let res = await api.post("contexts", newContext)
+        console.log("New Context created: ", res.data)
+        // dispatch("getContextsByUserId")
+        // dispatch("setContextsByUserId")
 
+      } catch (error) {
+        console.error(error)
+
+      }
+    },
+    setActiveIntensityLevel({ commit }, intensityLevel) {
+      commit("setActiveIntensityLevel", intensityLevel)
+    },
+    setActiveSet({ commit }, activeSet) {
+      commit("setActiveSet", activeSet)
+    }
   }
 });

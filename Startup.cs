@@ -67,6 +67,8 @@ namespace Wol
       services.AddTransient<ExercisesRepository>();
       services.AddTransient<MuscleGroupsService>();
       services.AddTransient<MuscleGroupsRepository>();
+      services.AddTransient<ContextsService>();
+      services.AddTransient<ContextsRepository>();
     }
 
     private IDbConnection CreateDbConnection()

@@ -22,13 +22,13 @@ namespace Wol.Repositories
     }
     internal IEnumerable<Set> GetNext(string userId)
     {
-      string sql = "SELECT * FROM sets WHERE  userId = @UserId AND date = (SELECT MIN(date) FROM sets WHERE actualWeight < 1)";
+      string sql = "SELECT * FROM sets WHERE  userId = @UserId AND actualWeight<1 AND date = (SELECT MIN(date))";
       return _db.Query<Set>(sql, new { userId });
     }
     internal Set EditSet(Set setToUpdate)
     {
       {
-        string sql = "UPDATE sets SET ActualRepCount = @actualRepCount, ActualWeight = @actualWeight WHERE id = @Id";
+        string sql = "UPDATE sets SET ActualRepCount = @actualRepCount, ActualWeight = @actualWeight, ActualIntensityLevel =@actualIntensityLevel WHERE id = @Id";
         int affectedRows = _db.Execute(sql, setToUpdate);
         return setToUpdate;
       }

@@ -8,9 +8,9 @@ namespace Wol.Models
     public string UserId { get; set; }
     public int RepMax { get; set; }
     public int RepMin { get; set; }
-    public float increment { get; set; }
-    public float factor { get; set; }
-    public int numOfCycles { get; set; }
+    public float Increment { get; set; }
+    public float Factor { get; set; }
+    public int NumOfCycles { get; set; }
 
 
   }
