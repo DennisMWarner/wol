@@ -245,9 +245,9 @@ export default {
       this.$store.dispatch("getUserContexts", this.$auth.user.sub);
     },
     saveSetData() {
-      this.activeSet.date =
+      this.activeSet.setDate =
         this.$store.state.activeDate.pastDate ||
-        this.$store.state.activeDate.date;
+        this.$store.state.activeDate.setDate;
       this.activeSet.context = this.$store.state.activeContext.name;
       this.activeSet.cycle = this.$store.state.activeCycle.name;
       this.activeSet.intensityLevel = this.$store.state.activeIntensityLevel.intensityLevel;

@@ -12,7 +12,7 @@ namespace Wol.Models
     public int ActualRepCount { get; set; }
     public float PlannedWeight { get; set; }
     public int PlannedRepCount { get; set; }
-    public string Date { get; set; }
+    public string SetDate { get; set; }
     public string Context { get; set; }
     public int Cycle { get; set; }
     public int IntensityLevel { get; set; }

@@ -161,7 +161,7 @@ export default new Vuex.Store({
     getCurrentDateString({ commit }) {
       let currentDateString = {}
       let d = new Date();
-      currentDateString.date = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
+      currentDateString.setDate = d.getFullYear() + "-" + (d.getMonth() + 1) + "-" + d.getDate()
       currentDateString.day = d.getDate();
       currentDateString.month = d.getMonth() + 1;
       currentDateString.year = d.getFullYear();
@@ -256,8 +256,8 @@ export default new Vuex.Store({
         let res = await api.get("sets/next", userId)
         commit("setActiveSets", res.data)
         console.log("sets from DB: ", res.data)
-        dispatch("setActiveDateFromDB", res.data[0].date)
-        // console.log("date string sent: ", res.data[0].date)
+        dispatch("setActiveDateFromDB", res.data[0].setDate)
+
       } catch (error) {
         console.error(error)
 
@@ -331,8 +331,11 @@ export default new Vuex.Store({
       plannedSet.plannedWeight = lastSet.actualWeight * 1.1;
       plannedSet.actualWeight = 0;
       plannedSet.actualRepCount = 0;
-      let parsedDate = lastSet.date.split(" ")[0].split("/");
-      plannedSet.date = parsedDate[2] + "-" + parsedDate[0] + "-" + parsedDate[1]
+      // let parsedDate = lastSet.setDate.split(" ")[0].split("/");
+      // plannedSet.setDate = parsedDate[2] + "-" + parsedDate[0] + "-" + parsedDate[1]
+
+      dispatch("getCurrentDateString");
+      plannedSet.setDate = this.state.activeDate.year + "-" + this.state.activeDate.month + "-" + (parseInt(this.state.activeDate.day) + 1).toString();
       console.log("planned set/lastSet: ", plannedSet, lastSet)
       await api.post("sets", plannedSet)
 

@@ -22,7 +22,8 @@ namespace Wol.Repositories
     }
     internal IEnumerable<Set> GetNext(string userId)
     {
-      string sql = "SELECT * FROM sets WHERE  userId = @UserId AND actualWeight<1 AND date = (SELECT MIN(date))";
+      string sql = "SELECT * FROM sets WHERE userId =@UserId AND actualWeight<1 AND setDate = (SELECT MIN(setDate) FROM sets WHERE actualWeight<1) LIMIT 1000;";
+
       return _db.Query<Set>(sql, new { userId });
     }
     internal Set EditSet(Set setToUpdate)
@@ -36,8 +37,8 @@ namespace Wol.Repositories
     internal Set Create(Set newSet)
     {
       string sql = @"
-            INSERT INTO sets(exerciseName,  userId, muscleGroup, plannedRepCount, plannedWeight,actualRepCount, actualWeight, name, context, date, cycle)
-            VALUES(@ExerciseName, @UserId, @MuscleGroup, @PlannedRepCount, @PlannedWeight, @ActualRepCount, @ActualWeight, @Name, @Context, @Date, @Cycle); 
+            INSERT INTO sets(exerciseName,  userId, muscleGroup, plannedRepCount, plannedWeight,actualRepCount, actualWeight, name, context, SetDate, cycle)
+            VALUES(@ExerciseName, @UserId, @MuscleGroup, @PlannedRepCount, @PlannedWeight, @ActualRepCount, @ActualWeight, @Name, @Context, @SetDate, @Cycle); 
             SELECT LAST_INSERT_ID()
         ";
       newSet.Id = _db.ExecuteScalar<int>(sql, newSet);
