@@ -32,6 +32,7 @@ namespace Wol.Services
 
     }
 
+
     internal string Delete(string userId)
     {
       if (_repo.Delete(userId))

@@ -15,6 +15,7 @@ namespace Wol.Models
     public string SetDate { get; set; }
     public string Context { get; set; }
     public int Cycle { get; set; }
+    public int NextSetId { get; set; }
     public int IntensityLevel { get; set; }
     public int ActualIntensityLevel { get; set; }
   }

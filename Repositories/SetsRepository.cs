@@ -29,7 +29,7 @@ namespace Wol.Repositories
     internal Set EditSet(Set setToUpdate)
     {
       {
-        string sql = "UPDATE sets SET ActualRepCount = @actualRepCount, ActualWeight = @actualWeight, ActualIntensityLevel =@actualIntensityLevel WHERE id = @Id";
+        string sql = "UPDATE sets SET actualRepCount = @ActualRepCount, actualWeight = @ActualWeight, actualIntensityLevel =@ActualIntensityLevel, plannedRepCount =@PlannedRepCount, plannedWeight=@PlannedWeight, nextSetId =@NextSetId WHERE id = @Id";
         int affectedRows = _db.Execute(sql, setToUpdate);
         return setToUpdate;
       }

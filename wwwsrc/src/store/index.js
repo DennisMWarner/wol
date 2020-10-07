@@ -327,18 +327,29 @@ export default new Vuex.Store({
     },
     async planNextSet({ dispatch, commit }, lastSet) {
       console.log("planNExtSet called... set to plan: ", lastSet)
+
       let plannedSet = { ...lastSet };
       plannedSet.plannedWeight = lastSet.actualWeight * 1.1;
       plannedSet.actualWeight = 0;
       plannedSet.actualRepCount = 0;
-      // let parsedDate = lastSet.setDate.split(" ")[0].split("/");
-      // plannedSet.setDate = parsedDate[2] + "-" + parsedDate[0] + "-" + parsedDate[1]
 
-      dispatch("getCurrentDateString");
-      plannedSet.setDate = this.state.activeDate.year + "-" + this.state.activeDate.month + "-" + (parseInt(this.state.activeDate.day) + 1).toString();
       console.log("planned set/lastSet: ", plannedSet, lastSet)
-      await api.post("sets", plannedSet)
 
+      if (this.state.activeSet.nextSetId < 1) {
+        plannedSet.setDate = this.state.activeDate.year + "-" + this.state.activeDate.month + "-" + (parseInt(this.state.activeDate.day) + 1).toString();
+        delete plannedSet.id;
+        let res = await api.post("sets", plannedSet)
+        lastSet.nextSetId = res.data.id
+        console.log("response of new planned set: ", res.data)
+      }
+      else {
+        plannedSet.id = lastSet.nextSetId;
+        plannedSet.nextSetId = 0;
+        let res = await api.put("sets/" + plannedSet.id, plannedSet)
+        console.log("set sent to planned set to edit: ", plannedSet)
+        console.log("response of edited palnned set: ", res.data)
+      }
+      console.log("next set planned... sent to put request to update active set: ", lastSet)
       dispatch("enterActualSetData", lastSet)
 
 
