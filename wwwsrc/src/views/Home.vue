@@ -1,47 +1,25 @@
 <template class="bg-dark home">
   <div>
     <div class="row text-center text-white">
-      <div class="col-sm-4">
+      <div class="col-6">
         active Date: {{ this.$store.state.activeDate.month }}-{{
           this.$store.state.activeDate.day
         }}-{{ this.$store.state.activeDate.year }}
       </div>
-      <div class="col-sm-4">
+      <div class="col-6">
         active Cycle: {{ this.$store.state.activeCycle.name }}
       </div>
     </div>
-    <!-- <div class="row text-center text-white">
-      <div class="col-12">{{this.$store.state.activeDate.pastDate}}</div>
-    </div>-->
+
     <div v-if="this.$auth.userInfo.sub">
-      <div
-        v-if="this.$store.state.activeMuscleGroups.length > 0"
-        class="border border-warning shadow rounded px-1 mb-2 bg-info"
-      >
-        <muscle-groups />
-        <!-- <exercise v-if="this.$store.state.activeMuscleGroup.name" /> -->
+      <div class="border border-warning rounded px-2">
+        <div v-if="this.$store.state.activeSets.length > 0" class="px-1">
+          <continue-program-button />
+        </div>
+        <add-new-program />
+        <add-old-workout />
       </div>
-      <div
-        v-else
-        class="border border-warning shadow rounded px-1 mb-2 bg-info"
-      >
-        <muscle-group />
-        <!-- <exercise v-if="this.$store.state.activeMuscleGroup.name" /> -->
-      </div>
-      <add-muscle-group-button
-        v-if="this.$store.state.activeMuscleGroup.name"
-      />
-      <add-another-exercise-button
-        v-if="this.$store.state.activeExercisesByMuscleGroup.length > 0"
-      />
-      <!-- <div class="col-12 text-center text-white pt-4 mt-2">
-        <button
-          class="btn btn-success text-white pt-3 border rounded border-white"
-          @click="addAllToDB()"
-        >
-          <h5>Add exercises and musclegroups to DB</h5>
-        </button>
-      </div>-->
+
       <!-------------------clear DB button and modal------------------------>
       <div
         v-if="this.$store.state.activeMuscleGroups.length > 0"
@@ -57,7 +35,7 @@
           </button>
         </div>
       </div>
-      <!-----------------Add Another Exercise Modal------------------------------>
+      <!-----------------Clear DB Modal------------------------------>
       <div class="modal" tabindex="-1" role="dialog" id="clearDBModal">
         <div class="modal-dialog-centered" role="document">
           <div class="modal-content bg-transparent">
@@ -100,12 +78,9 @@
 </template>
 
 <script>
-import MuscleGroup from "../components/MuscleGroup";
-import MuscleGroups from "../components/MuscleGroups";
-import AddMuscleGroupButton from "../components/AddMuscleGroupButton";
-import AddAnotherExerciseButton from "../components/AddAnotherExerciseButton";
-import SetGroup from "../components/SetGroup";
-import Exercise from "../components/Exercise";
+import ContinueProgramButton from "../components/ContinueProgramButton";
+import AddNewProgram from "../components/AddNewProgram";
+import AddOldWorkout from "../components/AddOldWorkout";
 
 export default {
   name: "home",
@@ -120,14 +95,16 @@ export default {
       return this.$store.state.plannedSets;
     },
   },
+  data() {
+    return {
+      activeDate: {},
+    };
+  },
   methods: {
     async login() {
       await this.$auth.loginWithPopup();
       this.$store.dispatch("setBearer", this.$auth.bearer);
-      // console.log("this.$auth.user: ");
-      // console.log(this.$auth.user);
-      // this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
-      this.$store.dispatch("getSetsByUserId", this.$auth.user.sub);
+      this.$store.dispatch("getNextSetsByUserId", this.$auth.user.sub);
       this.$store.dispatch("getCurrentDateString");
     },
 
@@ -137,17 +114,11 @@ export default {
     clearDB() {
       this.$store.dispatch("clearDB", this.$auth.user.sub);
     },
-    addAllToDB() {
-      this.$store.dispatch("addAllToDB", this.$auth.user.sub);
-    },
   },
   components: {
-    MuscleGroup,
-    MuscleGroups,
-    SetGroup,
-    Exercise,
-    AddMuscleGroupButton,
-    AddAnotherExerciseButton,
+    ContinueProgramButton,
+    AddNewProgram,
+    AddOldWorkout,
   },
 };
 </script>

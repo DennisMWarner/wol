@@ -3,7 +3,10 @@ import Router from "vue-router";
 // @ts-ignore
 import Home from "./views/Home.vue";
 // @ts-ignore
-// import Dashboard from "./views/Dashboard.vue";
+import CurrentProgram from "./views/CurrentProgram.vue";
+
+// @ts-ignore
+import NewProgram from "./views/NewProgram.vue";
 
 
 import { authGuard } from "@bcwdev/auth0-vue";
@@ -16,6 +19,18 @@ export default new Router({
       path: "/",
       name: "home",
       component: Home
+    },
+    {
+      path: "/current-program",
+      name: "current-program",
+      component: CurrentProgram,
+      beforeEnter: authGuard
+    },
+    {
+      path: "/new-program",
+      name: "new-program",
+      component: NewProgram,
+      beforeEnter: authGuard
     },
 
     // {

@@ -119,6 +119,7 @@ export default new Vuex.Store({
       if (state.activeSets.findIndex(as => as.id == activeSet.id) < 0) { state.activeSets.push(activeSet) }
       state.activeSet = activeSet;
     },
+
     setActiveSets(state, activeSets) {
       state.activeSets = activeSets
       state.activeSets.forEach(activeSet => {
@@ -150,6 +151,13 @@ export default new Vuex.Store({
 
       }
       )
+    },
+    clearActiveSets(state) {
+      state.activeSets = [];
+      state.activeExercises = [];
+      state.activeContexts = [];
+      state.activeExercisesByMuscleGroup = [];
+      state.activeMuscleGroups = [];
     },
     setActiveSetsByExercise(state, activeExercise) {
       state.activeSetsByExercise = state.activeSets.filter(ae => ae.exerciseName == activeExercise.name)
@@ -376,6 +384,9 @@ export default new Vuex.Store({
     },
     setActiveSet({ commit }, activeSet) {
       commit("setActiveSet", activeSet)
+    },
+    clearActiveSets({ commit }) {
+      commit("clearActiveSets")
     }
   }
 });
