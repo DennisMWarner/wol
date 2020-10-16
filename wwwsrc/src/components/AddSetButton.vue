@@ -262,12 +262,10 @@ export default {
       if (this.activeSet.plannedWeight && this.activeSet.plannedRepCount) {
         this.$store.dispatch("saveSetData", this.activeSet);
         $("#addSetDataModal").modal("hide");
-        console.log("activeSet sent: ", this.activeSet);
+
         this.activeSet.musclegroup = this.$store.state.activeMuscleGroup.name;
         this.activeSet = {};
       }
-
-      console.log("activeSet sent: ", this.activeSet);
     },
     setCycle() {
       this.$store.commit("setActiveCycle", this.activeCycle);

@@ -45,18 +45,18 @@ export default new Vuex.Store({
   },
   mutations: {
     setActiveDate(state, activeDate) {
-      console.log("set date commit: ", activeDate)
+
       state.activeDate = activeDate
     },
     setActiveContext(state, activeContext) {
-      console.log("setActiveContextLevel committed: ", activeContext)
+
       state.activeContext = activeContext
     },
     setMuscleGroups(state, muscleGroups) {
       state.muscleGroups = muscleGroups
     },
     setActiveIntensityLevel(state, activeIntensityLevel) {
-      console.log("setActiveIntensityLevel committed: ", activeIntensityLevel)
+
       state.activeIntensityLevel = activeIntensityLevel
     },
     setExercises(state, exercises) {
@@ -86,10 +86,10 @@ export default new Vuex.Store({
       };
     },
     setActiveMuscleGroups(state, payload) {
-      console.log("setActiveMuscleGroups called in mutations... received: ", payload)
+
       payload.forEach(element => {
         let activeMuscleGroup = {}
-        console.log("payload element: ", element)
+
         if (
           state.activeMuscleGroups.findIndex(
             (amg) => amg.name == element.muscleGroup
@@ -115,8 +115,9 @@ export default new Vuex.Store({
     },
 
     setActiveSet(state, activeSet) {
-      console.log("setActiveSet called: ", activeSet)
-      if (state.activeSets.findIndex(as => as.id == activeSet.id) < 0) { state.activeSets.push(activeSet) }
+      let setIndex = state.activeSets.findIndex(as => as.id == activeSet.id)
+      if (setIndex < 0) { state.activeSets.push(activeSet) }
+      else state.activeSets.splice(setIndex, 1, activeSet)
       state.activeSet = activeSet;
     },
 
@@ -140,7 +141,7 @@ export default new Vuex.Store({
             (ae) => ae.name == activeSet.exerciseName
           ) < 0
         ) {
-          console.log("activeSet.exerciseName: ", activeSet.exerciseName, activeExercise)
+
           activeExercise.name = activeSet.exerciseName
           activeExercise.muscleGroup = activeSet.muscleGroup
           state.activeExercises.push(
@@ -176,7 +177,7 @@ export default new Vuex.Store({
       commit("setActiveDate", currentDateString)
     },
     setPastDate({ commit }, pastDate) {
-      console.log("past date sent: ", pastDate)
+
       let activeDate = {};
       let dateString = pastDate.split("-");
 
@@ -184,7 +185,7 @@ export default new Vuex.Store({
       activeDate.day = dateString[1]
       activeDate.month = dateString[0]
       activeDate.year = dateString[2]
-      console.log("past date string sent: ", activeDate)
+
       commit("setActiveDate", activeDate)
     },
 
@@ -227,7 +228,7 @@ export default new Vuex.Store({
 
       try {
         let res = await api.post("sets", newSet)
-        console.log("post response: ", res.data)
+
         commit("setActiveSet", res.data)
         dispatch("setActiveSetsByExercise", this.state.activeExercise)
       } catch (error) {
@@ -241,8 +242,9 @@ export default new Vuex.Store({
 
       try {
         let res = await api.put("sets/" + editedSet.id, editedSet)
-        console.log("put response: ", res.data)
+
         commit("setActiveSet", res.data)
+        console.log("response of set PUT: ", res.data)
         dispatch("setActiveSetsByExercise", this.state.activeExercise)
       } catch (error) {
         console.error(error)
@@ -263,7 +265,7 @@ export default new Vuex.Store({
       try {
         let res = await api.get("sets/next", userId)
         commit("setActiveSets", res.data)
-        console.log("sets from DB: ", res.data)
+
         dispatch("setActiveDateFromDB", res.data[0].setDate)
 
       } catch (error) {
@@ -280,7 +282,7 @@ export default new Vuex.Store({
       activeDate.day = dateString[1]
       activeDate.month = dateString[0]
       activeDate.year = dateString[2]
-      console.log("date string sent: ", activeDate)
+
       commit("setActiveDate", activeDate)
     },
     async clearDB({ dispatch }, userId) {
@@ -334,30 +336,31 @@ export default new Vuex.Store({
       dispatch("getExercises")
     },
     async planNextSet({ dispatch, commit }, lastSet) {
-      console.log("planNExtSet called... set to plan: ", lastSet)
+
 
       let plannedSet = { ...lastSet };
       plannedSet.plannedWeight = lastSet.actualWeight * 1.1;
       plannedSet.actualWeight = 0;
       plannedSet.actualRepCount = 0;
+      console.log("planned set before send: ", plannedSet)
 
-      console.log("planned set/lastSet: ", plannedSet, lastSet)
 
-      if (this.state.activeSet.nextSetId < 1) {
+      if (lastSet.nextSetId < 1) {
         plannedSet.setDate = this.state.activeDate.year + "-" + this.state.activeDate.month + "-" + (parseInt(this.state.activeDate.day) + 1).toString();
         delete plannedSet.id;
         let res = await api.post("sets", plannedSet)
+        console.log("planned set sent: ", plannedSet)
+        console.log("planned set created: ", res.data)
         lastSet.nextSetId = res.data.id
-        console.log("response of new planned set: ", res.data)
+
       }
       else {
         plannedSet.id = lastSet.nextSetId;
         plannedSet.nextSetId = 0;
         let res = await api.put("sets/" + plannedSet.id, plannedSet)
-        console.log("set sent to planned set to edit: ", plannedSet)
-        console.log("response of edited palnned set: ", res.data)
+        console.log("planned set edited, response: ", res.data)
       }
-      console.log("next set planned... sent to put request to update active set: ", lastSet)
+
       dispatch("enterActualSetData", lastSet)
 
 
@@ -370,7 +373,7 @@ export default new Vuex.Store({
     async addNewContext({ dispatch, commit }, newContext) {
       try {
         let res = await api.post("contexts", newContext)
-        console.log("New Context created: ", res.data)
+
         // dispatch("getContextsByUserId")
         // dispatch("setContextsByUserId")
 

@@ -5,9 +5,11 @@
         class="mx-2 text-white border shadow border-white bg-secondary rounded text-left p-1 mt-2 mb-2"
         @click="setActiveSetsByExercise()"
       >
-        <p>{{this.exerciseData.name}}</p>
+        <p>{{ this.exerciseData.name }}</p>
       </div>
-      <set-group v-if="this.$store.state.activeExercise.name == this.exerciseData.name" />
+      <set-group
+        v-if="this.$store.state.activeExercise.name == this.exerciseData.name"
+      />
     </div>
 
     <div v-else class="w-75">
@@ -52,11 +54,6 @@ export default {
       } else {
         this.$store.dispatch("setActiveSetsByExercise", this.exerciseData);
       }
-      console.log(
-        "setActiveSetsByExercise called... :",
-        this.exerciseData.name,
-        this.$store.state.activeExercise.name
-      );
     },
   },
   components: { ExerciseMenuOptions, SetGroup },

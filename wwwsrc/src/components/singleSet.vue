@@ -1,5 +1,5 @@
 <template>
-  <div class="singleSet col-12 border-0">
+  <div class="single-set col-12 border-0">
     <div
       class="row"
       data-toggle="modal"
@@ -8,6 +8,9 @@
     >
       <div class="mt-2 col-12 no-gutters">
         <div class="row">
+          <div class="col-12 text-white text-centered">
+            Id: {{ activeSetData.id }}
+          </div>
           <div class="col-12 bg-white rounded-top">
             <div class="row">
               <div class="col-3">
@@ -67,6 +70,9 @@
             class="modal-body border border-white rounded bg-secondary no-gutters"
           >
             <form>
+              <div class="col-12 text-white text-centered">
+                Id: {{ activeSetData.id }}
+              </div>
               <div class="form-group">
                 <label
                   for="formGroupExampleInput"
@@ -77,7 +83,7 @@
                 <input
                   type="number"
                   class="form-control w-75 mx-auto text-center border border-success"
-                  v-model.number="activeSetData.actualWeight"
+                  v-model.number="activeSet.actualWeight"
                 />
               </div>
               <div class="form-group">
@@ -91,7 +97,7 @@
                   type="number"
                   class="form-control w-75 mx-auto text-center"
                   placeholder="Enter reps here..."
-                  v-model.number="activeSetData.actualRepCount"
+                  v-model.number="activeSet.actualRepCount"
                 />
               </div>
               <div class="form-group">
@@ -104,7 +110,7 @@
                 <input
                   type="number"
                   class="form-control w-75 mx-auto text-center border border-success"
-                  v-model.number="activeSetData.actualIntensityLevel"
+                  v-model.number="activeSet.actualIntensityLevel"
                 />
               </div>
 
@@ -121,7 +127,7 @@
               <div>
                 <button
                   class="btn btn-dark btn-block border border-white text-white rounded mt-3"
-                  type="submit"
+                  type="button"
                   data-dismiss="modal"
                 >
                   <h6 class="pt-1">Cancel</h6>
@@ -139,21 +145,26 @@
 
 <script>
 export default {
-  name: "singleSet",
+  name: "single-set",
   props: ["activeSetData"],
   data() {
-    return {};
+    return {
+      activeSet: {},
+    };
   },
   computed: {},
   methods: {
     setActiveSet() {
       this.$store.dispatch("setActiveSet", this.activeSetData);
-      console.log("singleSet: ", this.activeSetData);
     },
     enterActualSetData() {
-      console.log("enterActualSetData: ", this.activeSetData);
-      // this.$store.dispatch("enterActualSetData", this.activeSetData);
-      this.$store.dispatch("planNextSet", this.activeSetData);
+      let editedSet = { ...this.$store.state.activeSet };
+      editedSet.actualRepCount = this.activeSet.actualRepCount;
+      editedSet.actualWeight = this.activeSet.actualWeight;
+      editedSet.actualIntensityLevel = this.activeSet.actualIntensityLevel;
+      console.log("enterActualSetData: ", editedSet);
+
+      this.$store.dispatch("planNextSet", editedSet);
     },
   },
   components: {},

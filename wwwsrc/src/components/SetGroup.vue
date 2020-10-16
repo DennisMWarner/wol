@@ -1,6 +1,12 @@
 <template>
-  <div class="set-group row justify-content-left mx-3 mb-2 justify-content-center">
-    <single-set v-for="activeSet in activeSets" :activeSetData="activeSet" :key="activeSet.id"></single-set>
+  <div
+    class="set-group row justify-content-left mx-3 mb-2 justify-content-center"
+  >
+    <single-set
+      v-for="activeSet in activeSets"
+      :activeSetData="activeSet"
+      :key="activeSet.id"
+    ></single-set>
     <div class="row">
       <div class="col-12">
         <add-set-button />
@@ -11,7 +17,7 @@
 
 
 <script>
-import singleSet from "../components/singleSet";
+import SingleSet from "../components/SingleSet";
 import AddSetButton from "../components/AddSetButton";
 export default {
   name: "set-group",
@@ -24,7 +30,7 @@ export default {
     },
   },
   methods: {},
-  components: { singleSet, AddSetButton },
+  components: { SingleSet, AddSetButton },
 };
 </script>
 

@@ -67,7 +67,6 @@ export default {
   methods: {
     setPastDate() {
       this.$store.dispatch("setPastDate", this.activeDate.pastDate);
-      console.log("this.activeDate sent: ", this.activeDate.pastDate);
       this.activeDate = {};
     },
   },

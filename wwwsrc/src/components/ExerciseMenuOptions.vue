@@ -9,15 +9,21 @@
       class="btn btn-white bg-white border rounded text-dark border-white w-75 mb-3"
       data-toggle="modal"
       data-target="#addNewExerciseModal"
-    >Add New...</button>
+    >
+      Add New...
+    </button>
     <button
       class="btn btn-white bg-dark border rounded text-white border-white w-75 mt-3"
       data-dismiss="modal"
-    >Cancel</button>
+    >
+      Cancel
+    </button>
     <!-----------------Add New Exercise Modal----------------------------------->
     <div class="modal" tabindex="-1" role="dialog" id="addNewExerciseModal">
       <div class="modal-dialog-centered" role="document">
-        <div class="modal-content p-2 pt-4 bg-dark mx-3 border border-white rounded shadow">
+        <div
+          class="modal-content p-2 pt-4 bg-dark mx-3 border border-white rounded shadow"
+        >
           <form data-toggle="validator" role="form">
             <div class="form-group">
               <input
@@ -32,7 +38,9 @@
                 class="btn btn-outline-light bg-secondary text-white w-75 mt-3"
                 type="submit"
                 @click="addNewExercise()"
-              >Save</button>
+              >
+                Save
+              </button>
             </div>
           </form>
         </div>
@@ -66,7 +74,6 @@ export default {
         $("#addExerciseModal").modal("hide");
 
         this.$store.dispatch("addNewExercise", this.newExercise);
-        console.log("New exercise: ", this.newExercise);
       }
     },
   },

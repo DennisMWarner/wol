@@ -9,15 +9,26 @@
       class="btn btn-white bg-white border rounded text-dark border-white w-75 mb-3"
       data-toggle="modal"
       data-target="#add-new-muscle-group-modal"
-    >Add New...</button>
+    >
+      Add New...
+    </button>
     <button
       class="btn btn-white bg-dark border rounded text-white border-white w-75 mt-3"
       data-dismiss="modal"
-    >Cancel</button>
+    >
+      Cancel
+    </button>
     <!---------------------------add muscle group modal------------------------------>
-    <div class="modal" tabindex="-1" role="dialog" id="add-new-muscle-group-modal">
+    <div
+      class="modal"
+      tabindex="-1"
+      role="dialog"
+      id="add-new-muscle-group-modal"
+    >
       <div class="modal-dialog-centered" role="document">
-        <div class="modal-content p-2 pt-4 bg-dark mx-3 border border-white rounded shadow">
+        <div
+          class="modal-content p-2 pt-4 bg-dark mx-3 border border-white rounded shadow"
+        >
           <form data-toggle="validator" role="form">
             <div class="form-group">
               <input
@@ -33,7 +44,9 @@
                 type="submit"
                 @click="addNewMuscleGroup()"
                 data-dismiss="modal"
-              >Save</button>
+              >
+                Save
+              </button>
             </div>
           </form>
         </div>
@@ -60,7 +73,6 @@ export default {
   },
   methods: {
     addNewMuscleGroup() {
-      console.log("addNewMuscleGroup called: ");
       this.$store.dispatch("addMuscleGroup", this.newMuscleGroup);
     },
   },

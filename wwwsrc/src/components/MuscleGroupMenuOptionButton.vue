@@ -4,7 +4,9 @@
       class="btn btn-warning border rounded border-white w-75 mb-3"
       data-dismiss="modal"
       @click="setActiveMuscleGroup()"
-    >{{muscleGroupMenuOptionButtonData.name}}</button>
+    >
+      {{ muscleGroupMenuOptionButtonData.name }}
+    </button>
   </div>
 </template>
 
@@ -18,7 +20,6 @@ export default {
   computed: {},
   methods: {
     setActiveMuscleGroup() {
-      console.log("sending: ", this.muscleGroupMenuOptionButtonData);
       this.$store.dispatch(
         "setActiveMuscleGroup",
         this.muscleGroupMenuOptionButtonData
@@ -32,12 +33,6 @@ export default {
           this.muscleGroupMenuOptionButtonData
         );
       }
-      console.log(
-        "result of find: ",
-        this.$store.state.activeMuscleGroups.findIndex(
-          (amg) => amg.name == this.muscleGroupMenuOptionButtonData.name
-        ) < 0
-      );
     },
   },
   components: {},
