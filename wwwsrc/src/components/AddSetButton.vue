@@ -230,7 +230,7 @@
 
 <script>
 import ContextMenuOptions from "../components/ContextMenuOptions";
-import intensityLevelButtonGroup from "../components/IntensityLevelButtonGroup";
+import IntensityLevelButtonGroup from "../components/IntensityLevelButtonGroup";
 export default {
   name: "add-set-button",
   data() {
@@ -271,7 +271,7 @@ export default {
       this.$store.commit("setActiveCycle", this.activeCycle);
     },
   },
-  components: { ContextMenuOptions, intensityLevelButtonGroup },
+  components: { ContextMenuOptions, IntensityLevelButtonGroup },
 };
 </script>
 

@@ -237,12 +237,13 @@ export default new Vuex.Store({
       }
     },
     async enterActualSetData({ dispatch, commit }, editedSet) {
-      // await commit("setActiveSet", activeSet);
-      // dispatch("setActiveSetsByExercise", this.state.activeExercise)
-
+      editedSet.oneRepMax = parseFloat((editedSet.actualWeight / (1.0278 - 0.0278 * editedSet.actualRepCount)).toFixed(2));
+      editedSet.isComplete = 1;
+      // Brzycki method:  weight/(1.0278 - 0.0278*reps)
+      console.log("sent to PUT: ", editedSet)
       try {
         let res = await api.put("sets/" + editedSet.id, editedSet)
-
+        console.log("response of PUT:", res.data)
         commit("setActiveSet", res.data)
         console.log("response of set PUT: ", res.data)
         dispatch("setActiveSetsByExercise", this.state.activeExercise)
@@ -336,12 +337,13 @@ export default new Vuex.Store({
       dispatch("getExercises")
     },
     async planNextSet({ dispatch, commit }, lastSet) {
-
+      // Brzycki method:  weight/(1.0278 - 0.0278*reps)
 
       let plannedSet = { ...lastSet };
       plannedSet.plannedWeight = lastSet.actualWeight * 1.1;
       plannedSet.actualWeight = 0;
       plannedSet.actualRepCount = 0;
+      plannedSet.isComplete = 0;
       console.log("planned set before send: ", plannedSet)
 
 
@@ -388,7 +390,8 @@ export default new Vuex.Store({
     setActiveSet({ commit }, activeSet) {
       commit("setActiveSet", activeSet)
     },
-    clearActiveSets({ commit }) {
+    clearActiveSets({ dispatch, commit }) {
+      dispatch("getCurrentDateString")
       commit("clearActiveSets")
     }
   }

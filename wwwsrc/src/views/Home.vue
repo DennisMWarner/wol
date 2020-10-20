@@ -1,6 +1,6 @@
 <template class="bg-dark home">
   <div>
-    <div class="row text-center text-white">
+    <!-- <div class="row text-center text-white">
       <div class="col-6">
         active Date: {{ this.$store.state.activeDate.month }}-{{
           this.$store.state.activeDate.day
@@ -9,7 +9,7 @@
       <div class="col-6">
         active Cycle: {{ this.$store.state.activeCycle.name }}
       </div>
-    </div>
+    </div> -->
 
     <div v-if="this.$auth.userInfo.sub">
       <div class="border border-warning rounded px-2">
@@ -17,7 +17,7 @@
           <continue-program-button />
         </div>
         <add-new-program />
-        <add-old-workout />
+        <add-past-workout />
       </div>
 
       <!-------------------clear DB button and modal------------------------>
@@ -80,7 +80,7 @@
 <script>
 import ContinueProgramButton from "../components/ContinueProgramButton";
 import AddNewProgram from "../components/AddNewProgram";
-import AddOldWorkout from "../components/AddOldWorkout";
+import AddPastWorkout from "../components/AddPastWorkout";
 
 export default {
   name: "home",
@@ -118,7 +118,7 @@ export default {
   components: {
     ContinueProgramButton,
     AddNewProgram,
-    AddOldWorkout,
+    AddPastWorkout,
   },
 };
 </script>

@@ -1,11 +1,11 @@
 <template>
-  <div class="add-old-workout">
+  <div class="add-past-workout">
     <button
       class="btn w-100 mt-2 text-white border shadow border-white bg-warning rounded py-1 mb-2 text-center"
       data-toggle="modal"
       data-target="#change-date-modal"
     >
-      <h6 class="mt-2">ADD AN OLD WORKOUT</h6>
+      <h6 class="mt-2">ENTER A PAST WORKOUT</h6>
     </button>
     <!-----------------change date modal------------------------------------->
     <div class="modal" tabindex="-1" role="dialog" id="change-date-modal">
@@ -32,12 +32,29 @@
             <button
               class="btn btn-success btn-block border border-white text-white rounded"
               type="button"
+              data-toggle="modal"
+              data-target="#add-past-workout-modal"
               @click="setPastDate()"
-              data-dismiss="modal"
             >
               <h5 class="pt-1">Save</h5>
             </button>
           </div>
+          <!-----------------add past workout modal------------------------------------->
+          <div
+            class="modal"
+            tabindex="-1"
+            role="dialog"
+            id="add-past-workout-modal"
+          >
+            <div class="modal-dialog-centered" role="document">
+              <div class="modal-content bg-transparent">
+                <div class="modal-body no-gutters">
+                  <muscle-group-menu-options />
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-------------------------------------------------------------------------->
           <div>
             <button
               class="btn btn-dark btn-block border border-white text-white rounded mt-3"
@@ -56,8 +73,9 @@
 
 
 <script>
+import MuscleGroupMenuOptions from "../components/MuscleGroupMenuOptions";
 export default {
-  name: "add-old-workout",
+  name: "add-past-workout",
   data() {
     return {
       activeDate: {},
@@ -65,12 +83,15 @@ export default {
   },
   computed: {},
   methods: {
-    setPastDate() {
+    async setPastDate() {
       this.$store.dispatch("setPastDate", this.activeDate.pastDate);
       this.activeDate = {};
+      await this.$store.dispatch("clearActiveSets");
+      this.$router.push("/past-program");
+      $("#change-date-modal").modal("hide");
     },
   },
-  components: {},
+  components: { MuscleGroupMenuOptions },
 };
 </script>
 

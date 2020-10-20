@@ -8,9 +8,6 @@
     >
       <div class="mt-2 col-12 no-gutters">
         <div class="row">
-          <div class="col-12 text-white text-centered">
-            Id: {{ activeSetData.id }}
-          </div>
           <div class="col-12 bg-white rounded-top">
             <div class="row">
               <div class="col-3">
@@ -32,6 +29,9 @@
           </div>
         </div>
         <div class="row">
+          <div class="col-12 text-white text-centered">
+            1RM: {{ activeSetData.oneRepMax }}
+          </div>
           <div
             class="col-12 bg-success text-right text-white rounded-bottom border border-white"
           >
@@ -70,9 +70,6 @@
             class="modal-body border border-white rounded bg-secondary no-gutters"
           >
             <form>
-              <div class="col-12 text-white text-centered">
-                Id: {{ activeSetData.id }}
-              </div>
               <div class="form-group">
                 <label
                   for="formGroupExampleInput"

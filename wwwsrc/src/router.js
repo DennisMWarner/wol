@@ -7,6 +7,8 @@ import CurrentProgram from "./views/CurrentProgram.vue";
 
 // @ts-ignore
 import NewProgram from "./views/NewProgram.vue";
+// @ts-ignore
+import PastProgram from "./views/PastProgram.vue";
 
 
 import { authGuard } from "@bcwdev/auth0-vue";
@@ -32,7 +34,12 @@ export default new Router({
       component: NewProgram,
       beforeEnter: authGuard
     },
-
+    {
+      path: "/past-program",
+      name: "past-program",
+      component: PastProgram,
+      beforeEnter: authGuard
+    },
     // {
     //   path: "/dashboard",
     //   name: "dashboard",

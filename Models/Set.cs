@@ -18,6 +18,8 @@ namespace Wol.Models
     public int NextSetId { get; set; }
     public int IntensityLevel { get; set; }
     public int ActualIntensityLevel { get; set; }
+    public float oneRepMax { get; set; }
+    public int isComplete { get; set; }
   }
   // public class VaultKeepViewModel : Keep
   // {
